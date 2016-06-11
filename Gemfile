@@ -45,3 +45,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'haml', '~> 4.0.5'
+gem "haml-rails", "~> 0.9"

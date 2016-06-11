@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong En:
+  = @word.en
+%p
+  %strong Pl:
+  = @word.pl
+%p
+  %strong User:
+  = @word.user_id
+= link_to 'Edit', edit_word_path(@word)
+|
+= link_to 'Back', words_path
