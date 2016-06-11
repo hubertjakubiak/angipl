@@ -1,6 +1,6 @@
 %p#notice= notice
 %h1 Listing Words
-%table
+%table.table
   %thead
     %tr
       %th En
@@ -13,8 +13,8 @@
         %td= word.en
         %td= word.pl
         %td= word.user_id
-        %td= link_to 'Show', word
-        %td= link_to 'Edit', edit_word_path(word)
-        %td= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', word, {:class => 'btn btn-default'}
+        %td= link_to 'Edit', edit_word_path(word), {:class => 'btn btn-default'}
+        %td= link_to 'Destroy', word, :class => 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Word', new_word_path
