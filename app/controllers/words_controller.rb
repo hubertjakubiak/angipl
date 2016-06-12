@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :game]
 
   # GET /words
   # GET /words.json
@@ -20,6 +20,7 @@ class WordsController < ApplicationController
 
   # GET /words/1/edit
   def edit
+    check_user
   end
 
   # POST /words
@@ -63,6 +64,10 @@ class WordsController < ApplicationController
     end
   end
 
+  def game
+    @word = Word.offset(rand(Word.count)).first
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_word
@@ -72,5 +77,12 @@ class WordsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
       params.require(:word).permit(:en, :pl, :user_id)
+    end
+
+    def check_user
+      if @word.user != current_user
+        redirect_to root_path
+      end
+
     end
 end

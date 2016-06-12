@@ -1,19 +1,19 @@
-%h1 Listing Words
+%h1 Wszystkie słówka
 %table.table
   %thead
     %tr
-      %th En
-      %th Pl
-      %th User
+      %th Angielski
+      %th Polski
+      %th Dodane przez
       %th{:colspan => "3"}
   %tbody
     - @words.each do |word|
       %tr
         %td= word.en
         %td= word.pl
-        %td= word.user_id
-        %td= link_to 'Show', word, {:class => 'btn btn-default'}
-        %td= link_to 'Edit', edit_word_path(word), {:class => 'btn btn-default'}
-        %td= link_to 'Destroy', word, :class => 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' }
+        %td= word.user.email
+        %td= link_to 'Pokaż', word, {:class => 'btn btn-default'}
+        %td= link_to 'Edytuj', edit_word_path(word), {:class => 'btn btn-default'}
+        %td= link_to 'Usuń', word, :class => 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'Dodaje nowe słówka', new_word_path, {:class => 'btn btn-default'}

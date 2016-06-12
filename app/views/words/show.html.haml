@@ -6,7 +6,7 @@
   = @word.pl
 %p
   %strong User:
-  = @word.user_id
+  = @word.user.email
 = link_to 'Edit', edit_word_path(@word)
 |
 = link_to 'Back', words_path
