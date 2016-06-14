@@ -11,7 +11,7 @@
       %tr
         %td= word.en
         %td= word.pl
-        %td= word.user.email
+        %td= word.user.name
         %td= link_to 'Pokaż', word, {:class => 'btn btn-default'}
         %td= link_to 'Edytuj', edit_word_path(word), {:class => 'btn btn-default'}
         %td= link_to 'Usuń', word, :class => 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' }
