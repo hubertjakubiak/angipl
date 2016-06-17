@@ -3,7 +3,11 @@
     = link_to 'Angi.pl', root_path
     %small Nauka słówek online
 - flash.each do |key, value|
-  %div{:class => "alert alert-#{key}= value"}
+  %div{:class => "alert alert-#{key}"}
+    %a.close{"data-dismiss" => "alert", :href => "#"} ×
+    %ul
+      %li
+        = value
 %ul.nav.nav-pills
   %li= link_to 'Start', game_path
   %li= link_to 'Lista słówek', words_path
