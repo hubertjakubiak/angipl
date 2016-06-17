@@ -7,6 +7,7 @@
 %ul.nav.nav-pills
   %li= link_to 'Start', game_path
   %li= link_to 'Lista słówek', words_path
+  %li= link_to 'Moje słówka', my_words_path
   - if user_signed_in?
     %li
       = link_to('Wyloguj się', destroy_user_session_path, :method => :delete)

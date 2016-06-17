@@ -13,6 +13,11 @@ class WordsController < ApplicationController
   def show
   end
 
+  def my_words
+    @user = current_user
+    @words = @user.words
+  end
+
   # GET /words/new
   def new
     @word = Word.new
