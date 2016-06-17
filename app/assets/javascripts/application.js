@@ -20,6 +20,9 @@
 $(document).ready(function() {
     $(".word").click(function(){
       $(this).removeClass("blurry-text");
-      console.log('ko')
+      setTimeout(function(){
+        location.reload();
+      },2000)
+
     })
 });
