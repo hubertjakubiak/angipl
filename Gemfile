@@ -58,3 +58,4 @@ gem 'devise'
 
 gem 'simple_form'
 gem 'jquery-turbolinks'
+gem 'rails_12factor', group: :production
