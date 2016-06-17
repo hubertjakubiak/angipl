@@ -11,15 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-$( document ).ready(function() {
-    $(".show-answer").click(function(){
 
-  $("p").removeClass("blurry-text");
-  console.log('klik')
-})
+$(document).ready(function() {
+    $(".word").click(function(){
+      $(this).removeClass("blurry-text");
+      console.log('ko')
+    })
 });
-
