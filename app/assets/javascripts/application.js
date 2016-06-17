@@ -15,3 +15,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$( document ).ready(function() {
+    $(".show-answer").click(function(){
+
+  $("p").removeClass("blurry-text");
+  console.log('klik')
+})
+});
+

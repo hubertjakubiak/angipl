@@ -1,3 +1,4 @@
 %h1 Gra
 %p= @word.try(:pl)
-%p= @word.try(:en)
+%p.blurry-text= @word.try(:en)
+.show-answer Pokaż odpowiedź
