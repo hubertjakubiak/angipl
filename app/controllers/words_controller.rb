@@ -71,6 +71,17 @@ class WordsController < ApplicationController
 
   def game
     @word = Word.offset(rand(Word.count)).first
+    @search = Word.search(params[:search]).size
+
+    if @search == 1
+
+      respond_to do |format|
+        format.html { redirect_to game_path, notice: 'Prawidłowa odpowiedź' }
+      end
+
+    else 
+
+    end
   end
 
   private
