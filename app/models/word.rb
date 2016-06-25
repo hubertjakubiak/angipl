@@ -5,7 +5,7 @@ class Word < ActiveRecord::Base
 
   def self.search(search)
     if search
-      self.where(:en => "#{search}")
+      self.where("words.en = '#{search}' OR words.pl  = '#{search}' ")
     else
       self.all
     end

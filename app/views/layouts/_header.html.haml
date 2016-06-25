@@ -11,16 +11,17 @@
       %ul.nav.navbar-nav
         %li= active_link_to 'Lista słówek', words_path
         %li= active_link_to 'Moje słówka', my_words_path
-        - if user_signed_in?
-          %li
-            = link_to('Wyloguj się', destroy_user_session_path, :method => :delete)
-        - else
-          %li
-            = link_to('Logowanie', new_user_session_path)
-
+        %li= active_link_to 'Szukaj', search_words_path
+  
         - if user_signed_in?
           %li
             = link_to('Edytuj profil', edit_user_registration_path)
         - else
           %li
             = link_to('Rejestracja', new_user_registration_path)
+        - if user_signed_in?
+          %li
+            = link_to('Wyloguj się', destroy_user_session_path, :method => :delete)
+        - else
+          %li
+            = link_to('Logowanie', new_user_session_path)

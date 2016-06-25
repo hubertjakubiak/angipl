@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show, :game]
+  before_action :authenticate_user!, except: [:index, :show, :game, :search]
 
   # GET /words
   # GET /words.json
@@ -71,7 +71,6 @@ class WordsController < ApplicationController
 
   def game
     @word = Word.offset(rand(Word.count)).first
-    @search = Word.search(params[:search]).size
 
     if @search == 1
 
@@ -82,6 +81,10 @@ class WordsController < ApplicationController
     else 
 
     end
+  end
+
+  def search
+    @words = Word.search(params[:search])
   end
 
   private

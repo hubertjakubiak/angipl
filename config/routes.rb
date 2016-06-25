@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   get 'words/game' => 'words/game', as: 'game'
+  get 'words/search' => 'words/seach', as: 'search_words'
   get 'words/my_words' => 'words/my_words', as: 'my_words'
   root 'words#game'
-  resources :words
+  resources :words do
+    collection do
+      get 'search'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,12 +1,12 @@
 %p
-  %strong En:
+  %strong Angielski:
   = @word.en
 %p
-  %strong Pl:
+  %strong Polski:
   = @word.pl
 %p
-  %strong User:
-  = @word.user.email
+  %strong Dodane przez:
+  = @word.user.name
 = link_to 'Edit', edit_word_path(@word)
 |
 = link_to 'Back', words_path
