@@ -2,6 +2,7 @@ class Word < ActiveRecord::Base
   validates :en, presence: true
   validates :pl, presence: true
   belongs_to :user
+  acts_as_commentable
 
   def self.search(search)
     if search

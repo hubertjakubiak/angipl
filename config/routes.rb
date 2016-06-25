@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
+
   devise_for :users, :controllers => { registrations: 'registrations' }
+
+  # custom routes
   get 'words/game' => 'words/game', as: 'game'
   get 'words/search' => 'words/seach', as: 'search_words'
   get 'words/my_words' => 'words/my_words', as: 'my_words'
+
+  # set root
   root 'words#game'
+
+  # resources
   resources :words do
     collection do
       get 'search'

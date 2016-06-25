@@ -11,6 +11,7 @@
       %ul.nav.navbar-nav
         %li= active_link_to 'Lista słówek', words_path
         %li= active_link_to 'Moje słówka', my_words_path
+        %li= active_link_to 'Dodaj słówko', new_word_path
         %li= active_link_to 'Szukaj', search_words_path
   
         - if user_signed_in?
