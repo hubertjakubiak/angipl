@@ -1,8 +1,5 @@
-%h1 Gra
-%p.word= @word.try(:pl)
-%p.word.blurry-text= @word.try(:en)
-
-= form_tag game_path, :method => 'get' do
-  %p
-    = text_field_tag :search, params[:search]
-    = submit_tag "Search", :name => nil
+%br/
+.text-center
+  %pre.word.lead= @word.try(:pl)
+  %pre.word.blurry-text.lead= @word.try(:en)
+  %p Kliknij rozmazany tekst, aby zobaczyć prawidłową odpowiedź
