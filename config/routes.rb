@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # set root
   root 'words#game'
 
+  mount Commontator::Engine => '/commontator'
+
   # resources
   resources :words do
     collection do

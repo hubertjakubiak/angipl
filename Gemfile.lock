@@ -38,7 +38,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_commentable (4.0.2)
     arel (6.0.3)
     autoprefixer-rails (6.3.6.1)
       execjs
@@ -57,6 +56,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    commontator (4.11.1)
+      jquery-rails
+      rails (>= 3.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     devise (4.1.1)
@@ -194,10 +196,10 @@ PLATFORMS
 
 DEPENDENCIES
   active_link_to
-  acts_as_commentable
   bootstrap-sass (~> 3.3.6)
   byebug
   coffee-rails (~> 4.1.0)
+  commontator (~> 4.11.1)
   devise
   haml (~> 4.0.5)
   haml-rails (~> 0.9)

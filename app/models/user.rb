@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :words
   validates_uniqueness_of :name
+
+  acts_as_commontator
 end
