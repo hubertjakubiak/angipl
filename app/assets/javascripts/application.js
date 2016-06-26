@@ -18,7 +18,7 @@
 //= require_tree .
 
 $(document).ready(function() {
-    $(".word").click(function(){
+    $(".answer").click(function(){
       $(this).removeClass("blurry-text");
       setTimeout(function(){
         location.reload();
