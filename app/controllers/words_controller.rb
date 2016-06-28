@@ -71,16 +71,23 @@ class WordsController < ApplicationController
   end
 
   def game
-    @word = Word.offset(rand(Word.count)).first
 
-    if @search == 1
+    ids = Word.pluck(:id).shuffle[0..2]
+    @words = Word.where(id: ids).order('random()')
+    @first_word = @words.first
 
-      respond_to do |format|
-        format.html { redirect_to game_path, notice: 'Prawidłowa odpowiedź' }
-      end
+  end
 
-    else 
+  def check_word
 
+    @en = params[:en]
+    @pl = params[:pl]
+
+    @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
+
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 

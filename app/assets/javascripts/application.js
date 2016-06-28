@@ -17,12 +17,3 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
-    $(".answer").click(function(){
-      $(this).removeClass("blurry-text");
-      setTimeout(function(){
-        location.reload();
-      },2000)
-
-    })
-});

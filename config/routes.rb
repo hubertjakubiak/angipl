@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # custom routes
   get 'words/game' => 'words/game', as: 'game'
+  get 'words/check_word' => 'words/check_word', as: 'check_word'
   get 'words/search' => 'words/seach', as: 'search_words'
   get 'words/my_words' => 'words/my_words', as: 'my_words'
 
