@@ -83,6 +83,8 @@ class WordsController < ApplicationController
     @en = params[:en]
     @pl = params[:pl]
 
+    @correct_answer = Word.find_by_pl(@pl).en
+
     @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
 
     respond_to do |format|
