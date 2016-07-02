@@ -2,6 +2,6 @@
 .col-md-6.col-xs-12.col-md-offset-3.text-center
   %pre.lead=@first_word.pl
   - @words.each do |word|
-    %pre.answer.lead= link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}"}
-  %p Kliknij rozmazany tekst, aby zobaczyć prawidłową odpowiedź
+    %pre.answer.lead= link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get}
+  %p Wybierz prawidłową odpowiedź
 
