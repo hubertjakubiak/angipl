@@ -3,7 +3,9 @@
     %tr
       %th Angielski
       %th Polski
-      %th{:colspan => "3"}
+      %th Przyciski
+      %th Dobre tłumaczenie
+      %th Złe tłumaczenie
   %tbody
     - @words.each do |word|
       %tr
@@ -18,3 +20,6 @@
             = link_to 'Edytuj', edit_word_path(word) 
             |
             = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
+
+        %td= word.get_upvotes.size 
+        %td= word.get_downvotes.size  

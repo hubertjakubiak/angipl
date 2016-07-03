@@ -11,4 +11,14 @@
 |
 = link_to 'Back', words_path
 
+= link_to 'Dobre tłumaczenie', upvote_word_path
+%br/
+= link_to 'Złe tłumaczenie', downvote_word_path
+%br/
+Dobre tłumaczenie:
+= @word.get_upvotes.size 
+%br/
+Złe tłumaczenie:
+= @word.get_downvotes.size 
+%br/
 = commontator_thread(@word)

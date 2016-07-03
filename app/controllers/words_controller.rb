@@ -1,5 +1,5 @@
 class WordsController < ApplicationController
-  before_action :set_word, only: [:show, :edit, :update, :destroy]
+  before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word]
 
   # GET /words
@@ -76,6 +76,12 @@ class WordsController < ApplicationController
     @words = Word.where(id: ids).order('random()')
     @first_word = @words.first
 
+    # check if there is enough words in database
+    if Word.all.size < 5
+      flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
+      redirect_to new_word_path
+    end
+
   end
 
   def check_word
@@ -95,6 +101,16 @@ class WordsController < ApplicationController
 
   def search
     @words = Word.search(params[:search])
+  end
+
+  def upvote
+    @word.upvote_by current_user
+    redirect_to :back
+  end
+
+  def downvote
+    @word.downvote_by current_user
+    redirect_to :back
   end
 
   private

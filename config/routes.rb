@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'words/search' => 'words/seach', as: 'search_words'
   get 'words/my_words' => 'words/my_words', as: 'my_words'
 
+
   # set root
   root 'words#game'
 
@@ -17,6 +18,11 @@ Rails.application.routes.draw do
   resources :words do
     collection do
       get 'search'
+    end
+
+    member do
+      get 'upvote'
+      get 'downvote'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

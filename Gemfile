@@ -62,6 +62,7 @@ gem 'rails_12factor', group: :production
 gem 'active_link_to'
 gem 'commontator', '~> 4.11.1'
 gem 'devise-i18n'
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
