@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626092103) do
+ActiveRecord::Schema.define(version: 20160703150140) do
 
   create_table "commontator_comments", force: :cascade do |t|
     t.string   "creator_type"
