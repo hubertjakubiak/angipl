@@ -71,11 +71,15 @@ class WordsController < ApplicationController
   end
 
   def game
-
     ids = Word.pluck(:id).shuffle[0..2]
     @words = Word.where(id: ids).order('random()')
     @first_word = @words.first
 
+    #create stats of user if not exists earlier
+    @create_stat = Stat.where(:user_id => current_user.id).first_or_create if current_user
+
+    #get stats
+    @stats = Stat.find_by_user_id(current_user.id) if current_user
     # check if there is enough words in database
     if Word.all.size < 5
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'

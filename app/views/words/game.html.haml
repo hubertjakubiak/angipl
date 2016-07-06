@@ -4,4 +4,7 @@
   - @words.each do |word|
     %pre.answer.lead= link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get}
   %p Wybierz prawidłową odpowiedź
-
+.col-md-6.col-xs-12.col-md-offset-3.text-center
+  - if current_user
+    %p= "Dobre odpowiedzi: #{@stats.good_count}"
+    %p= "Złe odpowiedzi: #{@stats.bad_count}"
