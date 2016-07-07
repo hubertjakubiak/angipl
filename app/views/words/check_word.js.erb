@@ -7,12 +7,12 @@ setTimeout(function(){
 <% if @result == "1" %>
   $('[data-word="<%=@en %>"]').parent().css( "background-color", "green" );
   $('[data-word="<%=@en %>"]').css( "color", "white" );
-  <%= Stat.find_by_user_id(current_user.id).increment!(:good_count) if current_user %>
+  <% good_answer %>
 <% else %>
   $('[data-word="<%=@en %>"]').parent().css( "background-color", "red" );
   $('[data-word="<%=@correct_answer %>"]').parent().css( "background-color", "green" );
 
   $('[data-word="<%=@en %>"]').css( "color", "white" );
   $('[data-word="<%=@correct_answer %>"]').css( "color", "white" );
-  <% Stat.find_by_user_id(current_user.id).increment!(:good_count) if current_user %>
+  <% bad_answer %>
 <% end %>

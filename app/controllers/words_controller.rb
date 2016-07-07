@@ -77,6 +77,8 @@ class WordsController < ApplicationController
 
     #create stats of user if not exists earlier
     @create_stat = Stat.where(:user_id => current_user.id).first_or_create if current_user
+    @all_good_count = Stat.sum(:good_count)
+    @all_bad_count = Stat.sum(:bad_count)
 
     #get stats
     @stats = Stat.find_by_user_id(current_user.id) if current_user
@@ -101,6 +103,14 @@ class WordsController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def good_answer
+    Stat.find_by_user_id(current_user.id).increment!(:good_count) if current_user
+  end
+
+  def bad_answer
+    Stat.find_by_user_id(current_user.id).increment!(:bad_count) if current_user
   end
 
   def search
