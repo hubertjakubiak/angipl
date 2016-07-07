@@ -37,7 +37,7 @@ class WordsController < ApplicationController
 
     respond_to do |format|
       if @word.save
-        format.html { redirect_to @word, info: 'Word was successfully created.' }
+        format.html { redirect_to @word, info: 'Słówka zostało prawidłowo zapisane.' }
         format.json { render :show, status: :created, location: @word }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class WordsController < ApplicationController
   def update
     respond_to do |format|
       if @word.update(word_params)
-        format.html { redirect_to @word, notice: 'Word was successfully updated.' }
+        format.html { redirect_to @word, notice: 'Słówko został prawidłowo edytowane.' }
         format.json { render :show, status: :ok, location: @word }
       else
         format.html { render :edit }
@@ -65,7 +65,7 @@ class WordsController < ApplicationController
   def destroy
     @word.destroy
     respond_to do |format|
-      format.html { redirect_to words_url, notice: 'Word was successfully destroyed.' }
+      format.html { redirect_to words_url, notice: 'Słówka zostało usunięte' }
       format.json { head :no_content }
     end
   end
@@ -103,14 +103,6 @@ class WordsController < ApplicationController
       format.html
       format.js
     end
-  end
-
-  def good_answer
-    Stat.find_by_user_id(current_user.id).increment!(:good_count) if current_user
-  end
-
-  def bad_answer
-    Stat.find_by_user_id(current_user.id).increment!(:bad_count) if current_user
   end
 
   def search

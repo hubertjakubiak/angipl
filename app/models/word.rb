@@ -1,6 +1,7 @@
 class Word < ActiveRecord::Base
-  validates :en, presence: true
-  validates :pl, presence: true
+  validates :en, :presence => {:message => "To pole nie może być puste." }
+  validates :pl, :presence => {:message => "To pole nie może być puste." }
+  validates_uniqueness_of :en, :scope => :pl, :message => "Istnieje już takie tłumaczenie tego słówka."
   belongs_to :user
   acts_as_commontable
   acts_as_votable

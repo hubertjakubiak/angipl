@@ -1,5 +1,5 @@
 %p
   = simple_form_for(@word) do |f|
-    =f.input :en, label: 'Angielski', error: 'To pole jest obowiązkowe'
-    =f.input :pl, label: 'Polski', error: 'To pole jest obowiązkowe'
+    =f.input :en, label: 'Angielski'
+    =f.input :pl, label: 'Polski'
     =f.submit 'Zapisz', {:class => 'btn btn-primary'}
