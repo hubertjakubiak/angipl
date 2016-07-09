@@ -1,21 +1,42 @@
-%br/
-.col-md-6.col-xs-12.col-md-offset-3.text-center
-  %pre.lead=@first_word.pl
-  - @words.each do |word|
-    %pre.answer.lead= link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get}
-  %p 
-    Wybierz prawidłową odpowiedź.
-  %p 
-    = link_to "Zaloguj się", new_user_session_path
-    lub
-    = link_to "załóż konto", new_user_registration_path
-    aby śledzić swoje statystyki, które pojawią się w tym miejscu.
-.col-md-6.col-xs-12.col-md-offset-3.text-center
-  - if current_user
-    %p= "Dobre odpowiedzi: #{@stats.good_count}"
-    %p= "Złe odpowiedzi: #{@stats.bad_count}"
-    %p= "Poprawność: #{correctness(@stats.good_count, @stats.bad_count)}"
-    %p= "Ogólne statystyki:"
-  %p= "Dobre odpowiedzi: #{@all_good_count}"
-  %p= "Złe odpowiedzi: #{@all_bad_count}"
-  %p= "Poprawność: #{correctness(@all_good_count, @all_bad_count)}"
+.row.top-buffer
+  .col-md-4.col-xs-12.col-md-offset-4.text-center
+    .well.well-sm
+      Wybierz prawidłowe tłumaczenie.
+.row
+  .col-md-6.col-xs-12.col-md-offset-3.text-center
+    %p
+      .page-header.lead=@first_word.pl
+    %p
+    - @words.each do |word|
+      = link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get, :class=>"btn btn-default btn-lg"}
+    - unless user_signed_in?
+      .well.well-sm.top-buffer
+        = link_to "Zaloguj się", new_user_session_path
+        lub
+        = link_to "załóż konto", new_user_registration_path
+        aby śledzić swoje statystyki, które pojawią się w tabeli poniżej.
+    - else
+      .well.well-sm.top-buffer
+        Pomóż nam rozwijać serwis
+        = link_to "dodając nowe słówka.", new_word_path
+  .col-md-6.col-xs-12.col-md-offset-3.text-center.top-buffer
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th.text-center Kto?
+          %th.text-center Dobre odpowiedzi
+          %th.text-center Złe odpowiedzi
+          %th.text-center Poprawność
+      %tbody
+        - if current_user
+          %tr
+            %td Ja
+            %td= @stats.good_count
+            %td= @stats.bad_count
+            %td= correctness(@stats.good_count, @stats.bad_count)
+        %tr
+          %td Pozostali
+          %td= @all_good_count
+          %td= @all_bad_count
+          %td= correctness(@all_good_count, @all_bad_count)
+          

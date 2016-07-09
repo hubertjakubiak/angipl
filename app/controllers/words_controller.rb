@@ -71,7 +71,8 @@ class WordsController < ApplicationController
   end
 
   def game
-    ids = Word.pluck(:id).shuffle[0..2]
+    rand = rand(1..3)
+    ids = Word.pluck(:id).shuffle[0..rand]
     @words = Word.where(id: ids).order('random()')
     @first_word = @words.first
 
@@ -132,6 +133,7 @@ class WordsController < ApplicationController
 
     def check_user
       if @word.user != current_user
+        flash[:error] = 'Tego słówka nie możesz edytować.'
         redirect_to root_path
       end
 
