@@ -8,6 +8,8 @@ setTimeout(function(){
   location.reload(); 
 },2000)
 
+$('.word').addClass('disabled');
+
 <% if @result == "1" %>
   $('[data-word="<%=j @en %>"]').addClass('btn-success');
   <% good_answer %>

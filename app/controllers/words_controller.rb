@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word]
+  before_action :check_user , only: [:edit]
 
   # GET /words
   # GET /words.json
@@ -26,7 +27,7 @@ class WordsController < ApplicationController
 
   # GET /words/1/edit
   def edit
-    check_user
+    
   end
 
   # POST /words
@@ -97,6 +98,7 @@ class WordsController < ApplicationController
     @pl = params[:pl]
 
     @correct_answer = Word.find_by_pl(@pl).en
+    @correct_answer_id = Word.find_by_pl(@pl).id
 
     @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706185852) do
+ActiveRecord::Schema.define(version: 20160713172145) do
 
   create_table "commontator_comments", force: :cascade do |t|
     t.string   "creator_type"
@@ -103,8 +103,10 @@ ActiveRecord::Schema.define(version: 20160706185852) do
     t.string   "en"
     t.string   "pl"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "good_count", default: 0
+    t.integer  "bad_count",  default: 0
   end
 
   add_index "words", ["user_id"], name: "index_words_on_user_id"
