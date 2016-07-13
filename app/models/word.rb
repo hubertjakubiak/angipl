@@ -6,6 +6,10 @@ class Word < ActiveRecord::Base
   acts_as_commontable
   acts_as_votable
 
+  scope :verified , lambda { where(:verified => true)}
+
+  self.per_page = 2
+
   def self.search(search)
     if search
       self.where("words.en = '#{search}' OR words.pl  = '#{search}' ")

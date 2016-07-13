@@ -6,7 +6,7 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.includes(:user).all
+    @words = Word.includes(:user).paginate(:page => params[:page]).all
   end
 
   # GET /words/1
@@ -17,7 +17,7 @@ class WordsController < ApplicationController
 
   def my_words
     @user = current_user
-    @words = @user.words
+    @words = @user.words.paginate(:page => params[:page])
   end
 
   # GET /words/new
@@ -73,7 +73,7 @@ class WordsController < ApplicationController
 
   def game
     rand = rand(1..3)
-    ids = Word.pluck(:id).shuffle[0..rand]
+    ids = Word.verified.pluck(:id).shuffle[0..rand]
     @words = Word.where(id: ids).order('random()')
     @first_word = @words.first
 
@@ -85,7 +85,7 @@ class WordsController < ApplicationController
     #get stats
     @stats = Stat.find_by_user_id(current_user.id) if current_user
     # check if there is enough words in database
-    if Word.all.size < 5
+    if Word.verified.size < 5
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
       redirect_to new_word_path
     end
@@ -114,6 +114,10 @@ class WordsController < ApplicationController
 
   def upvote
     @word.upvote_by current_user
+
+    if (@word.get_upvotes.size - @word.get_downvotes.size) >=5
+      Word.find(@word.id).update(verified: true)
+    end
     redirect_to :back
   end
 

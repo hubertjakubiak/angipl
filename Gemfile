@@ -63,6 +63,8 @@ gem 'active_link_to'
 gem 'commontator', '~> 4.11.1'
 gem 'devise-i18n'
 gem 'acts_as_votable', '~> 0.10.0'
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'

@@ -1,0 +1,4 @@
+pl:
+  will_paginate:
+    next_label: 'Następna'
+    previous_label: 'Poprzednia'

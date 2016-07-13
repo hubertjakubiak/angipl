@@ -6,6 +6,7 @@
       %th Przyciski
       %th Dobre tłumaczenie
       %th Złe tłumaczenie
+      %th Zweryfikowane
   %tbody
     - @words.each do |word|
       %tr
@@ -21,5 +22,11 @@
             |
             = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
 
-        %td= word.get_upvotes.size 
-        %td= word.get_downvotes.size  
+        %td
+          = word.get_upvotes.size 
+          = link_to 'Dobre tłumaczenie', upvote_word_path(word.id)
+        %td
+          = word.get_downvotes.size
+          = link_to 'Złe tłumaczenie', downvote_word_path(word.id)
+        %td= word.verified ? 'Tak' : 'Nie'
+= will_paginate @words, renderer: BootstrapPagination::Rails
