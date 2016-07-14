@@ -8,7 +8,7 @@ class Word < ActiveRecord::Base
 
   scope :verified , lambda { where(:verified => true)}
 
-  self.per_page = 2
+  self.per_page = 50
 
   def self.search(search)
     if search

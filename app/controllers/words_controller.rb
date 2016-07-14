@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word]
+  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word, :upvote, :downvote]
   before_action :check_user , only: [:edit]
 
   # GET /words
@@ -38,7 +38,10 @@ class WordsController < ApplicationController
 
     respond_to do |format|
       if @word.save
-        format.html { redirect_to @word, info: 'Słówka zostało prawidłowo zapisane.' }
+        format.html { 
+          redirect_to new_word_path
+          flash[:notice] = 'Słówko zostało prawidłowo zapisane. Dodaj następne!'
+        }
         format.json { render :show, status: :created, location: @word }
       else
         format.html { render :new }
@@ -109,21 +112,35 @@ class WordsController < ApplicationController
   end
 
   def search
-    @words = Word.search(params[:search])
+    @words = Word.search(params[:search]).paginate(:page => params[:page])
   end
 
   def upvote
     @word.upvote_by current_user
 
-    if (@word.get_upvotes.size - @word.get_downvotes.size) >=5
+    #get votes
+    @good_votes = @word.get_upvotes.size
+    @bad_votes = @word.get_downvotes.size
+
+    if (@good_votes - @bad_votes) >=1
       Word.find(@word.id).update(verified: true)
     end
-    redirect_to :back
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
   def downvote
     @word.downvote_by current_user
-    redirect_to :back
+
+    @good_votes = @word.get_upvotes.size
+    @bad_votes = @word.get_downvotes.size
+    
+    respond_to do |format|
+      format.js 
+    end
+
   end
 
   private

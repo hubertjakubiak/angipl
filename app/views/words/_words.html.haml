@@ -3,30 +3,30 @@
     %tr
       %th Angielski
       %th Polski
-      %th Przyciski
-      %th Dobre tłumaczenie
-      %th Złe tłumaczenie
+      %th Oceń tłumaczenie
       %th Zweryfikowane
+      -if current_user
+        %th Zarządzaj
   %tbody
     - @words.each do |word|
       %tr
         %td= word.en
         %td= word.pl
-
-
         %td
-          = link_to 'Pokaż', word
-          - if current_user == word.user
-            |
-            = link_to 'Edytuj', edit_word_path(word) 
-            |
-            = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
 
-        %td
-          = word.get_upvotes.size 
-          = link_to 'Dobre tłumaczenie', upvote_word_path(word.id)
-        %td
-          = word.get_downvotes.size
-          = link_to 'Złe tłumaczenie', downvote_word_path(word.id)
+          
+          = link_to 'Dobre', upvote_word_path(word.id), { class: 'btn btn-success', remote: true}
+          %span.label.label-success{:id => "word_good_count_#{word.id}"}= word.get_upvotes.size 
+          = link_to 'Złe', downvote_word_path(word.id), { class: 'btn btn-danger', remote: true}
+          %span.label.label-danger{:id => "word_bad_count_#{word.id}"}= word.get_downvotes.size
         %td= word.verified ? 'Tak' : 'Nie'
+
+        -if current_user == word.user
+          %td
+            = link_to 'Pokaż', word
+            - if current_user == word.user
+              |
+              = link_to 'Edytuj', edit_word_path(word) 
+              |
+              = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
 = will_paginate @words, renderer: BootstrapPagination::Rails

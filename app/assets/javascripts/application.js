@@ -16,7 +16,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-$( document ).click(function() {
-  $( ".answer" ).effect( "shake" );
-});

@@ -1,5 +1,5 @@
 %p
   = simple_form_for(@word) do |f|
-    =f.input :en, label: 'Angielski'
+    =f.input :en, label: 'Angielski', :autofocus => true
     =f.input :pl, label: 'Polski'
     =f.submit 'Zapisz', {:class => 'btn btn-primary'}
