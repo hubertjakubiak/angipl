@@ -7,6 +7,7 @@ class Word < ActiveRecord::Base
   acts_as_votable
 
   scope :verified , lambda { where(:verified => true)}
+  scope :sorted , lambda { order('created_at DESC') }
 
   self.per_page = 50
 

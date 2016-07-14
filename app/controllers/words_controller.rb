@@ -6,7 +6,7 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.includes(:user).paginate(:page => params[:page]).all
+    @words = Word.includes(:user).sorted.paginate(:page => params[:page]).all
   end
 
   # GET /words/1
@@ -17,7 +17,7 @@ class WordsController < ApplicationController
 
   def my_words
     @user = current_user
-    @words = @user.words.paginate(:page => params[:page])
+    @words = @user.words.sorted.paginate(:page => params[:page])
   end
 
   # GET /words/new
