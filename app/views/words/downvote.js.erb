@@ -3,4 +3,5 @@ $("#word_bad_count_<%= @word.id%>").html("<%= @bad_votes %>");
 
 <% unless current_user %>
 alert('Zaloguj się, aby głosować.');
+$().alert('close')
 <% end %>

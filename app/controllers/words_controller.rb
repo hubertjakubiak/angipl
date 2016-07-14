@@ -125,6 +125,10 @@ class WordsController < ApplicationController
     if (@good_votes - @bad_votes) >=1
       Word.find(@word.id).update(verified: true)
     end
+
+    if current_user.admin?
+      Word.find(@word.id).update(verified: true)
+    end
     
     respond_to do |format|
       format.js
@@ -136,6 +140,10 @@ class WordsController < ApplicationController
 
     @good_votes = @word.get_upvotes.size
     @bad_votes = @word.get_downvotes.size
+
+    if current_user.admin?
+      Word.find(@word.id).update(verified: false)
+    end
     
     respond_to do |format|
       format.js 
