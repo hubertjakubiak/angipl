@@ -25,9 +25,8 @@
         -if current_user.try(:admin?)
           %td
             = link_to 'Pokaż', word
-            - if current_user == word.user
-              |
-              = link_to 'Edytuj', edit_word_path(word) 
-              |
-              = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
+            |
+            = link_to 'Edytuj', edit_word_path(word) 
+            |
+            = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
 = will_paginate @words, renderer: BootstrapPagination::Rails

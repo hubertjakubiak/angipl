@@ -2,17 +2,29 @@ $(function(){
     $('body').css('background-color', 'blue !important');
 });
 
-setTimeout(function(){ 
-  location.reload(); 
-},2000)
-
 $('.word').addClass('disabled');
 
 <% if @result == "1" %>
   $('[data-word="<%=j @en %>"]').addClass('btn-success');
+  location.reload(); 
   <% good_answer %>
+
+  var my_good_count = $('#my_good_count');
+  var num = parseInt(my_good_count.text());
+  my_good_count.text(num+1);
+  my_good_count.css("background-color", "#5cb85c").fadeIn(1000);
+  my_good_count.css("color", "#fff").fadeIn(1000);
 <% else %>
   $('[data-word="<%=j @en %>"]').addClass('btn-danger');
   $('[data-word="<%=j @correct_answer %>"]').addClass('btn-success');
+  setTimeout(function(){ 
+    location.reload(); 
+  },2000)
   <% bad_answer %>
+
+  var my_bad_count = $('#my_bad_count');
+  var num = parseInt(my_bad_count.text());
+  my_bad_count.text(num+1);
+  my_bad_count.css("background-color", "#d9534f").fadeIn(1000);
+  my_bad_count.css("color", "#fff").fadeIn(1000);
 <% end %>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'words/check_word' => 'words/check_word', as: 'check_word'
   get 'words/search' => 'words/seach', as: 'search_words'
   get 'words/my_words' => 'words/my_words', as: 'my_words'
+  get 'words/game_ajax' => 'words/game_ajax', as: 'game_ajax'
 
 
   # set root
