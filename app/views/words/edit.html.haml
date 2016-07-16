@@ -1,5 +1,7 @@
-%h1 Editing Word
-= render 'form'
-= link_to 'Show', @word
-|
-= link_to 'Back', words_path
+.row
+  .col-md-4
+    %h1 Edytuj słówko
+    = render 'form'
+    = link_to 'Show', @word
+    |
+    = link_to 'Back', words_path

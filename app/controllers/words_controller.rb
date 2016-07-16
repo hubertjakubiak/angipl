@@ -1,7 +1,7 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word, :upvote, :downvote]
-  before_action :check_user , only: [:edit]
+  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word, :downvote, :upvote]
+  before_action :check_user! , only: [:edit, :destroy]
 
   # GET /words
   # GET /words.json
@@ -112,41 +112,51 @@ class WordsController < ApplicationController
   end
 
   def search
-    @words = Word.search(params[:search]).paginate(:page => params[:page])
+    if params[:search]
+      @words = Word.search(params[:search]).paginate(:page => params[:page])
+    end
   end
 
   def upvote
-    @word.upvote_by current_user
+    if current_user
+      @word.upvote_by current_user
 
-    #get votes
-    @good_votes = @word.get_upvotes.size
-    @bad_votes = @word.get_downvotes.size
+      #get votes
+      @good_votes = @word.get_upvotes.size
+      @bad_votes = @word.get_downvotes.size
 
-    if (@good_votes - @bad_votes) >=1
-      Word.find(@word.id).update(verified: true)
-    end
+      if (@good_votes - @bad_votes) >=1
+        Word.find(@word.id).update(verified: true)
+      end
 
-    if current_user.admin?
-      Word.find(@word.id).update(verified: true)
-    end
-    
-    respond_to do |format|
-      format.js
+      if current_user.admin?
+        Word.find(@word.id).update(verified: true)
+      end
+      
+      respond_to do |format|
+        format.js
+      end
+    else
+      must_login_to_vote
     end
   end
 
   def downvote
-    @word.downvote_by current_user
+    if current_user
+      @word.downvote_by current_user
 
-    @good_votes = @word.get_upvotes.size
-    @bad_votes = @word.get_downvotes.size
+      @good_votes = @word.get_upvotes.size
+      @bad_votes = @word.get_downvotes.size
 
-    if current_user.admin?
-      Word.find(@word.id).update(verified: false)
-    end
-    
-    respond_to do |format|
-      format.js 
+      if current_user.admin?
+        Word.find(@word.id).update(verified: false)
+      end
+      
+      respond_to do |format|
+        format.js 
+      end
+    else
+      must_login_to_vote
     end
 
   end
@@ -162,11 +172,18 @@ class WordsController < ApplicationController
       params.require(:word).permit(:en, :pl, :user_id)
     end
 
-    def check_user
-      if @word.user != current_user
-        flash[:error] = 'Tego słówka nie możesz edytować.'
-        redirect_to root_path
+    def check_user!
+      unless current_user.admin?
+        flash[:error] = 'Nie posiadasz odpowiednich uprawnień, aby wykonać tę akcję.'
+        redirect_to :back
       end
 
+    end
+
+    def must_login_to_vote
+      respond_to do |format|
+        flash[:error] = 'Musisz się zalogować, aby oceniać tłumaczenia.'
+        format.js {render :js => "window.location.reload();"}
+      end
     end
 end

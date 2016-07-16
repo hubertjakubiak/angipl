@@ -9,20 +9,24 @@
       .navbar-brand= link_to "Angi.pl", root_path
     #navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li= active_link_to 'Lista słówek', words_path
-        %li= active_link_to 'Moje słówka', my_words_path
-        %li= active_link_to 'Dodaj słówko', new_word_path
-        %li= active_link_to 'Szukaj', search_words_path
+        %li{:class => "#{'active' if current_page?(words_path)}"}
+          = active_link_to 'Lista słówek', words_path
+        %li{:class => "#{'active' if current_page?(my_words_path)}"}
+          = active_link_to 'Moje słówka', my_words_path
+        %li{:class => "#{'active' if current_page?(new_word_path)}"}
+          = active_link_to 'Dodaj słówko', new_word_path
+        %li{:class => "#{'active' if current_page?(search_words_path)}"}
+          = active_link_to 'Szukaj', search_words_path
   
         - if user_signed_in?
-          %li
+          %li{:class => "#{'active' if current_page?(edit_user_registration_path)}"}
             = link_to('Edytuj profil', edit_user_registration_path)
         - else
-          %li
+          %li{:class => "#{'active' if current_page?(new_user_registration_path)}"}
             = link_to('Rejestracja', new_user_registration_path)
         - if user_signed_in?
           %li
             = link_to('Wyloguj się', destroy_user_session_path, :method => :delete)
         - else
-          %li
+          %li{:class => "#{'active' if current_page?(new_user_session_path)}"}
             = link_to('Logowanie', new_user_session_path)

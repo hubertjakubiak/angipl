@@ -5,7 +5,8 @@
       %th Polski
       %th Oceń tłumaczenie
       %th Zweryfikowane
-      -if current_user
+      %th Dodane przez
+      -if current_user.try(:admin?)
         %th Zarządzaj
   %tbody
     - @words.each do |word|
@@ -20,8 +21,8 @@
           = link_to 'Złe', downvote_word_path(word.id), { class: 'btn btn-danger', remote: true}
           %span.label.label-danger{:id => "word_bad_count_#{word.id}"}= word.get_downvotes.size
         %td= word.verified ? 'Tak' : 'Nie'
-
-        -if current_user == word.user
+        %td= word.user.name
+        -if current_user.try(:admin?)
           %td
             = link_to 'Pokaż', word
             - if current_user == word.user

@@ -1,10 +1,10 @@
-%h1 Szukaj
-= form_tag search_words_path, :method => 'get' do
-  .row
-    .col-md-4
+.row
+  .col-md-4
+    %h1 Szukaj
+    = form_tag search_words_path, :method => 'get' do
       %p
         = text_field_tag :search, params[:search], class: 'form-control'
         %br/
         = submit_tag "Szukaj", :name => nil, class: 'btn btn-primary'
-
-= render 'words'
+- unless @words.blank?
+  = render 'words'
