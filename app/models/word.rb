@@ -8,9 +8,10 @@ class Word < ActiveRecord::Base
   acts_as_votable
 
   scope :verified , lambda { where(:verified => true)}
+  scope :notverified , lambda { where(:verified => false)}
   scope :sorted , lambda { order('created_at DESC') }
 
-  self.per_page = 50
+  self.per_page = 20
 
   def self.search(search)
     if search

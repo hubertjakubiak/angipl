@@ -1,3 +1,4 @@
+- title "Edytuj profil"
 .row
   .col-md-4
     %h2
@@ -17,7 +18,7 @@
           Currently waiting confirmation for: #{resource.unconfirmed_email}
       .field
         = f.label :password
-        %i (leave blank if you don't want to change it)
+        %i (pozostaw puste jeśli nie chcesz nic zmieniać)
         %br/
         = f.password_field :password, { :class => 'form-control', :autocomplete => "off", }
       .field
@@ -26,7 +27,7 @@
         = f.password_field :password_confirmation, { :class => 'form-control', :autocomplete => "off" }
       .field
         = f.label :current_password
-        %i (we need your current password to confirm your changes)
+        %i (potrzebujemy twojego aktualnego hasła, aby potwierdzić zmiany)
         %br/
         = f.password_field :current_password, { :class => 'form-control', :autocomplete => "off", }
       .actions

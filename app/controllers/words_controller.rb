@@ -20,6 +20,10 @@ class WordsController < ApplicationController
     @words = @user.words.sorted.paginate(:page => params[:page])
   end
 
+  def to_verify
+    @words = Word.notverified.paginate(:page => params[:page])
+  end
+
   # GET /words/new
   def new
     @word = Word.new

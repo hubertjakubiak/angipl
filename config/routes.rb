@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  
 
   # custom routes
+  get 'dodaj-slowko' => 'words#new', as: 'new_word'
+  get 'lista-slowek' => 'words#index', as: 'words'
   get 'words/game' => 'words/game', as: 'game'
   get 'words/check_word' => 'words/check_word', as: 'check_word'
-  get 'words/search' => 'words/seach', as: 'search_words'
-  get 'words/my_words' => 'words/my_words', as: 'my_words'
+  get 'szukaj' => 'words#search', as: 'search_words'
+  get 'moje-slowka' => 'words#my_words', as: 'my_words'
   get 'words/game_ajax' => 'words/game_ajax', as: 'game_ajax'
+  get 'do-weryfikacji' => 'words#to_verify', as: 'words_to_verify'
 
+  devise_for :users, :controllers => { registrations: 'registrations' }
 
   # set root
   root 'words#game'
