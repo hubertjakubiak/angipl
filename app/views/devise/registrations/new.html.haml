@@ -16,7 +16,7 @@
         = f.label :password, "Hasło"
         - if @minimum_password_length
           %em
-            (#{@minimum_password_length} characters minimum)
+            (#{@minimum_password_length} znaków minimum)
         %br/
         = f.password_field :password, {:class => 'form-control', autocomplete: 'off' }
       .field
@@ -26,4 +26,6 @@
         %br/
       .actions
         = f.submit "Zarejestruj się", { :class => 'btn btn-primary'}
+        %br/
+        %br/
     = render "devise/shared/links"
