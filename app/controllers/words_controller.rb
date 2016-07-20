@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check_word, :downvote, :upvote]
+  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check, :downvote, :upvote]
   before_action :check_user! , only: [:edit, :destroy]
 
   # GET /words
@@ -15,7 +15,7 @@ class WordsController < ApplicationController
     commontator_thread_show(@word)
   end
 
-  def my_words
+  def my
     @user = current_user
     @words = @user.words.sorted.paginate(:page => params[:page])
   end
@@ -99,7 +99,7 @@ class WordsController < ApplicationController
 
   end
 
-  def check_word
+  def check
 
     @en = params[:en]
     @pl = params[:pl]
@@ -117,6 +117,7 @@ class WordsController < ApplicationController
 
   def search
     if params[:search]
+      @words_count = Word.search(params[:search]).count
       @words = Word.search(params[:search]).paginate(:page => params[:page])
     end
   end

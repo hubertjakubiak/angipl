@@ -15,7 +15,7 @@
         .progress-bar.progress-bar-danger{:role => "progressbar", :style => "width:#{correctness_reverse(@first_word.good_count, @first_word.bad_count)}"}
           = correctness_reverse(@first_word.good_count, @first_word.bad_count)
     - @words.each do |word|
-      = link_to word.try(:en), check_word_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get, :class=>"word btn btn-default btn-lg"}
+      = link_to word.try(:en), check_words_path(en: "#{word.en}", pl: "#{@first_word.pl}"), {:remote => true, 'data-word' => "#{word.en}", :method => :get, :class=>"word btn btn-default btn-lg"}
     - unless user_signed_in?
       .well.well-sm.top-buffer
         = link_to "Zaloguj się", new_user_session_path

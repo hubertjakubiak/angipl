@@ -6,6 +6,7 @@ class Word < ActiveRecord::Base
   belongs_to :user
   acts_as_commontable
   acts_as_votable
+  before_validation :strip_whitespace
 
   scope :verified , lambda { where(:verified => true)}
   scope :notverified , lambda { where(:verified => false)}
@@ -18,5 +19,10 @@ class Word < ActiveRecord::Base
       #self.where("words.en = '#{search}' OR words.pl  = '#{search}' ")
       self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search}%", "%#{search}%")
     end
+  end
+
+  def strip_whitespace
+    self.en = self.en.strip unless self.en.nil?
+    self.pl = self.pl.strip unless self.pl.nil?
   end
 end

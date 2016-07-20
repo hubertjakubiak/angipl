@@ -16,6 +16,8 @@ pl:
               blank: 'nie może być pusty.'
             password:
               blank: 'nie może być puste.'
+            current_password:
+              blank: 'nie może być puste.'
       expired: 'stracił ważność, wyślij zapytanie o nowy'
       not_found: 'nie znaleziono'
       already_confirmed: 'już został aktywowany, możesz się zalogować'

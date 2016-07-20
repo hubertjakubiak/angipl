@@ -13,8 +13,8 @@
           = active_link_to 'Lista słówek', words_path
         %li{:class => "#{'active' if current_page?(my_words_path)}"}
           = active_link_to 'Moje słówka', my_words_path
-        %li{:class => "#{'active' if current_page?(words_to_verify_path)}"}
-          = active_link_to 'Do weryfikacji', words_to_verify_path
+        %li{:class => "#{'active' if current_page?(to_verify_words_path)}"}
+          = active_link_to 'Do weryfikacji', to_verify_words_path
         %li{:class => "#{'active' if current_page?(new_word_path)}"}
           = active_link_to 'Dodaj słówko', new_word_path
         %li{:class => "#{'active' if current_page?(search_words_path)}"}

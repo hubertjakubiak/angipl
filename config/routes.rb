@@ -3,16 +3,14 @@ Rails.application.routes.draw do
   
 
   # custom routes
-  get 'dodaj-slowko' => 'words#new', as: 'new_word'
-  get 'lista-slowek' => 'words#index', as: 'words'
-  get 'words/game' => 'words/game', as: 'game'
-  get 'words/check_word' => 'words/check_word', as: 'check_word'
-  get 'szukaj' => 'words#search', as: 'search_words'
-  get 'moje-slowka' => 'words#my_words', as: 'my_words'
-  get 'words/game_ajax' => 'words/game_ajax', as: 'game_ajax'
-  get 'do-weryfikacji' => 'words#to_verify', as: 'words_to_verify'
+  get 'words/to-verify' => 'words#to_verify', as: 'words_to_verify'
 
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for  :users, :path => '', 
+              :path_names => {:sign_up => 'rejestracja', 
+                              :sign_in => 'logowanie', 
+                              :sign_out => 'wyloguj-sie',
+                              :edit => 'edytuj-profil'}, 
+              :controllers => { registrations: 'registrations' }
 
   # set root
   root 'words#game'
@@ -20,9 +18,15 @@ Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
 
   # resources
+
   resources :words do
+
     collection do
       get 'search'
+      get 'my'
+      get 'check'
+      get 'game'
+      get 'to-verify'
     end
 
     member do
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
       get 'downvote'
     end
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

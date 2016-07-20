@@ -7,5 +7,8 @@
         = text_field_tag :search, params[:search], class: 'form-control'
         %br/
         = submit_tag "Szukaj", :name => nil, class: 'btn btn-primary'
+- if params[:search]
+  %p 
+    = "#{@words_count} znalezionych wyników."
 - unless @words.blank?
   = render 'words'
