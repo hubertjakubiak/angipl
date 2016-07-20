@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'dodaj-slowko' => 'words#new', as: 'new_word'
   post 'lista-slowek' => 'words#create'
   get 'szukaj' => 'words#search', as: 'search_words'
+  get 'sprawdz' => 'words#check', as: 'check_words'
 
   devise_for  :users, :path => '', 
               :path_names => {:sign_up => 'rejestracja', 

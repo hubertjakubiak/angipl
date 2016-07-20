@@ -110,7 +110,6 @@ class WordsController < ApplicationController
     @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
 
     respond_to do |format|
-      format.html
       format.js
     end
   end
