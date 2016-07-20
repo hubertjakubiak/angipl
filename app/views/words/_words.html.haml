@@ -5,6 +5,7 @@
       %th Polski
       %th Oceń tłumaczenie
       %th Zweryfikowane
+      %th Poprawność
       %th Dodane przez
       -if current_user.try(:admin?)
         %th Zarządzaj
@@ -21,6 +22,13 @@
           = link_to 'Złe', downvote_word_path(word.id), { class: 'btn btn-danger', remote: true}
           %span.label.label-danger{:id => "word_bad_count_#{word.id}"}= word.get_downvotes.size
         %td= word.verified ? 'Tak' : 'Nie'
+        %td
+          = correctness(word.good_count, word.bad_count)
+          (
+          = word.good_count
+          \/
+          = word.bad_count
+          )
         %td= word.user.name
         -if current_user.try(:admin?)
           %td

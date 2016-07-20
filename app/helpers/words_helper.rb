@@ -11,7 +11,11 @@ module WordsHelper
   end
 
   def correctness(good_count, bad_count)
-    number_to_percentage(good_count.to_f / (good_count + bad_count) * 100, { :precision => 1})
+    if good_count != 0 || bad_count != 0
+      number_to_percentage(good_count.to_f / (good_count + bad_count) * 100, { :precision => 1})
+    else
+      return 'brak'
+    end
   end
 
   def correctness_reverse(good_count, bad_count)

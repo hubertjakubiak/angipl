@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   
 
   # custom routes
-  get 'words/to-verify' => 'words#to_verify', as: 'words_to_verify'
+  #get 'search' => 'words#search', as: 'search_words'
+  get 'lista-slowek' => 'words#index', as: 'words'
+  get 'moje-slowka' => 'words#my', as: 'my_words'
+  get 'do-weryfikacji' => 'words#to_verify', as: 'to_verify_words'
+  get 'dodaj-slowko' => 'words#new', as: 'new_word'
+  post 'lista-slowek' => 'words#create'
+  get 'szukaj' => 'words#search', as: 'search_words'
 
   devise_for  :users, :path => '', 
               :path_names => {:sign_up => 'rejestracja', 
