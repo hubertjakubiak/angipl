@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'check'
       get 'game'
       get 'to-verify'
+      post 'import'
     end
 
     member do
