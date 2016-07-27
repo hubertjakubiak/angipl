@@ -182,14 +182,6 @@ class WordsController < ApplicationController
       params.require(:word).permit(:en, :pl, :user_id)
     end
 
-    def check_user!
-      unless current_user.admin?
-        flash[:error] = 'Nie posiadasz odpowiednich uprawnień, aby wykonać tę akcję.'
-        redirect_to :back
-      end
-
-    end
-
     def must_login_to_vote
       respond_to do |format|
         flash[:error] = 'Musisz się zalogować, aby oceniać tłumaczenia.'

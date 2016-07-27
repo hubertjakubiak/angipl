@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/hubert', as: 'rails_admin'
   devise_for :admins, :controllers => { registrations: 'admins_registrations' }
 
   # custom routes

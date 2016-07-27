@@ -65,6 +65,7 @@ gem 'devise-i18n'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+gem 'rails_admin'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
