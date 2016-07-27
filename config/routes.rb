@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+  devise_for :admins, :controllers => { registrations: 'admins_registrations' }
 
   # custom routes
   #get 'search' => 'words#search', as: 'search_words'

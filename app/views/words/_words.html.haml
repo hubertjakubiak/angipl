@@ -30,7 +30,7 @@
           = word.bad_count
           )
         %td= word.user.try(:name)
-        -if current_user.try(:admin?)
+        -if admin_signed_in?
           %td
             = link_to 'Pokaż', word
             |
