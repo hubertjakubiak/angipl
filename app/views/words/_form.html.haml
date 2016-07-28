@@ -2,4 +2,7 @@
   = simple_form_for(@word) do |f|
     =f.input :en, label: 'Angielski', :autofocus => true
     =f.input :pl, label: 'Polski'
+    =f.label 'Kategoria'
+    =f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :class => 'form-control' }
+    %br/
     =f.submit 'Zapisz', {:class => 'btn btn-primary'}

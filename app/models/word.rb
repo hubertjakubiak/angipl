@@ -11,6 +11,9 @@ class Word < ActiveRecord::Base
   acts_as_votable
   before_validation :strip_whitespace
 
+  has_many :word_categories
+  has_many :categories, through: :word_categories
+
   scope :verified , lambda { where(:verified => true)}
   scope :notverified , lambda { where(:verified => false)}
   scope :sorted , lambda { order('created_at DESC') }

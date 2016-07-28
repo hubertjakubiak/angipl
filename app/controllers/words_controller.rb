@@ -6,7 +6,7 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.includes(:user).sorted.paginate(:page => params[:page]).all
+    @words = Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all
   end
 
   # GET /words/1
@@ -179,7 +179,7 @@ class WordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
-      params.require(:word).permit(:en, :pl, :user_id)
+      params.require(:word).permit(:en, :pl, :user_id, :category_ids => [])
     end
 
     def must_login_to_vote

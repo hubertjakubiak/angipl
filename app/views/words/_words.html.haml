@@ -3,6 +3,7 @@
     %tr
       %th Angielski
       %th Polski
+      %th Kategoria
       %th Oceń tłumaczenie
       %th Zweryfikowane
       %th Poprawność
@@ -14,6 +15,9 @@
       %tr
         %td= word.en
         %td= word.pl
+        %td
+          - word.categories.each do |category|
+            = category.name
         %td
 
           
