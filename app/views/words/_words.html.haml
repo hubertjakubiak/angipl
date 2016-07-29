@@ -16,11 +16,8 @@
         %td= word.en
         %td= word.pl
         %td
-          - word.categories.each do |category|
-            = category.name
-        %td
-
-          
+          = word.categories.map{|p| p.name}.join(", ")
+        %td          
           = link_to 'Dobre', upvote_word_path(word.id), { class: 'btn btn-success', remote: true}
           %span.label.label-success{:id => "word_good_count_#{word.id}"}= word.get_upvotes.size 
           = link_to 'Złe', downvote_word_path(word.id), { class: 'btn btn-danger', remote: true}
@@ -34,7 +31,7 @@
           = word.bad_count
           )
         %td= word.user.try(:name)
-        -if admin_signed_in?
+        -if current_user.try(:admin?)
           %td
             = link_to 'Pokaż', word
             |
