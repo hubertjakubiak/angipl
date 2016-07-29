@@ -1,7 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show, :game, :search, :check, :downvote, :upvote]
-  before_action :authenticate_admin! , only: [:edit, :destroy]
 
   # GET /words
   # GET /words.json
