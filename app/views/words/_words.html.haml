@@ -4,6 +4,7 @@
       %th Angielski
       %th Polski
       %th Kategoria
+      %th Poziom trudności
       %th Oceń tłumaczenie
       %th Zweryfikowane
       %th Poprawność
@@ -17,6 +18,7 @@
         %td= word.pl
         %td
           = word.categories.map{|p| p.name}.join(", ")
+        %td= word.level
         %td          
           = link_to 'Dobre', upvote_word_path(word.id), { class: 'btn btn-success', remote: true}
           %span.label.label-success{:id => "word_good_count_#{word.id}"}= word.get_upvotes.size 

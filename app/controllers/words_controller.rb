@@ -179,7 +179,7 @@ class WordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
-      params.require(:word).permit(:en, :pl, :user_id, :category_ids => [])
+      params.require(:word).permit(:en, :pl, :user_id, :level, :category_ids => [])
     end
 
     def must_login_to_vote
