@@ -1,0 +1,42 @@
+%table.table
+  %thead
+    %tr
+      %th Angielski
+      %th Polski
+      %th Kategoria
+      %th Poziom trudności
+      %th Oceń tłumaczenie
+      %th Zweryfikowane
+      %th Poprawność
+      %th Dodane przez
+      %th Zarządzaj
+  %tbody
+    - @words.each do |word|
+      %tr
+        %td= word.en
+        %td= word.pl
+        %td
+          = word.categories.map{|p| p.name}.join(", ")
+        %td= word.level
+        %td          
+          = link_to 'Dobre', upvote_word_path(word.id), { class: 'btn btn-success', remote: true}
+          %span.label.label-success{:id => "word_good_count_#{word.id}"}= word.get_upvotes.size 
+          = link_to 'Złe', downvote_word_path(word.id), { class: 'btn btn-danger', remote: true}
+          %span.label.label-danger{:id => "word_bad_count_#{word.id}"}= word.get_downvotes.size
+        %td= word.verified ? 'Tak' : 'Nie'
+        %td
+          = correctness(word.good_count, word.bad_count)
+          (
+          = word.good_count
+          \/
+          = word.bad_count
+          )
+        %td= word.user.try(:name)
+        -if can? :edit, word
+          %td
+            = link_to 'Pokaż', word
+            |
+            = link_to 'Edytuj', edit_word_path(word) 
+            |
+            = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
+= will_paginate @words, renderer: BootstrapPagination::Rails

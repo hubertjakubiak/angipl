@@ -1,6 +1,5 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :authenticate_user!, except: [:index, :show, :game, :search, :check, :downvote, :upvote]
 
   # GET /words
   # GET /words.json
@@ -26,16 +25,18 @@ class WordsController < ApplicationController
   # GET /words/new
   def new
     @word = Word.new
+    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko."
   end
 
   # GET /words/1/edit
   def edit
-    
+    authorize! :edit, @word, :message => "Nie możesz edytować tego słówka."
   end
 
   # POST /words
   # POST /words.json
   def create
+    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko."
     @user = current_user
     @word = @user.words.build(word_params)
 
@@ -56,6 +57,7 @@ class WordsController < ApplicationController
   # PATCH/PUT /words/1
   # PATCH/PUT /words/1.json
   def update
+    authorize! :update, @word, :message => "Nie możesz edytować tego słówka."
     respond_to do |format|
       if @word.update(word_params)
         format.html { redirect_to @word, notice: 'Słówko został prawidłowo edytowane.' }
@@ -70,6 +72,7 @@ class WordsController < ApplicationController
   # DELETE /words/1
   # DELETE /words/1.json
   def destroy
+    authorize! :delete, @word, :message => "Nie możesz usunąć tego słówka."
     @word.destroy
     respond_to do |format|
       format.html { redirect_to words_url, notice: 'Słówka zostało usunięte' }

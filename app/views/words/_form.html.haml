@@ -2,10 +2,7 @@
   = simple_form_for(@word) do |f|
     =f.input :en, label: 'Angielski', :autofocus => true
     =f.input :pl, label: 'Polski'
-    =f.label 'Poziom trudności (0 - najłatwiejsze, 10 - najtrudniejsze)'
-    %br/
-    =f.select :level, (0..10).to_a.map{|n| [n, n]}, include_blank: "---", selected: @word[:level] 
-    %br/
+    =f.input :level, label: 'Poziom trudności (0 - najłatwiejsze, 10 - najtrudniejsze)', collection: 0..10, prompt: "---", selected: @word[:level]
     =f.label 'Kategoria'
     =f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :class => 'form-control' }
     %br/
