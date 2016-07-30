@@ -1,5 +1,10 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+
+    $( "#show_answers" ).click(function() {
+      $( ".answers" ).show();
+      $(this).remove();
+    });
 });
 
  $(document).bind("ajaxSend", function(){
