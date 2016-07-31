@@ -67,6 +67,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
 gem 'rails_admin'
 gem 'cancancan', '~> 1.10'
+gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'

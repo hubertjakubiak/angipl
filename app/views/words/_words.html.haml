@@ -32,7 +32,9 @@
           \/
           = word.bad_count
           )
-        %td= word.user.try(:name)
+        %td
+          = image_tag word.user.avatar.url(:small)
+          = word.user.try(:name)
         -if current_user.try(:admin?)
           %td
             = link_to 'Pokaż', word
