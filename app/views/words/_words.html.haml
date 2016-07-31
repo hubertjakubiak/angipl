@@ -14,8 +14,8 @@
   %tbody
     - @words.each do |word|
       %tr
-        %td= word.en
-        %td= word.pl
+        %td= link_to word.en, word
+        %td= link_to word.pl, word
         %td
           = word.categories.map{|p| p.name}.join(", ")
         %td= word.level

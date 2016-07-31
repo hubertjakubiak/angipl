@@ -14,8 +14,10 @@ class WordsController < ApplicationController
   end
 
   def my
+    authorize! :my_words, @words, :message => "Musisz się zalogować, aby dodać swoje słówka."
     @user = current_user
     @words = @user.words.sorted.paginate(:page => params[:page])
+
   end
 
   def to_verify

@@ -1,9 +1,8 @@
-%p
-  %strong Angielski:
-  = @word.en
-%p
-  %strong Polski:
-  = @word.pl
+- title "#{@word.pl} po angielsku to #{@word.en}"
+%h1= @word.en
+
+%h2= @word.pl
+
 %p
   %strong Dodane przez:
   = @word.user.name
@@ -22,3 +21,4 @@ Złe tłumaczenie:
 = @word.get_downvotes.size 
 %br/
 = commontator_thread(@word)
+

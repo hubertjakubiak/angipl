@@ -4,6 +4,7 @@ class Word < ActiveRecord::Base
 
   validates :en, :presence => {:message => "To pole nie może być puste." }
   validates :pl, :presence => {:message => "To pole nie może być puste." }
+  validates :categories, :presence => {:message => "To pole nie może być puste." }
   validates_uniqueness_of :en, :scope => :pl, :message => "Istnieje już takie tłumaczenie tego słówka."
   validates_uniqueness_of :pl, :scope => :en, :message => "Istnieje już takie tłumaczenie tego słówka."
   belongs_to :user
