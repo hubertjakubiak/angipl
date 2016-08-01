@@ -36,3 +36,6 @@
         - else
           %li{:class => "#{'active' if current_page?(new_user_session_path)}"}
             = link_to('Logowanie', new_user_session_path)
+        - if admin_signed_in?
+          %li
+            = link_to('Wyloguj się', destroy_admin_session_path, :method => :delete)

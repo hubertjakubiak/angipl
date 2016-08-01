@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/hubert', as: 'rails_admin'
-  devise_for :admins, :controllers => { registrations: 'admins_registrations' }
+  devise_for :admins, :controllers => { registrations: 'admins_registrations'}
 
   # custom routes
   #get 'search' => 'words#search', as: 'search_words'

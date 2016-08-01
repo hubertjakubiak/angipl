@@ -1,7 +1,7 @@
 - title "Do weryfikacji"
 %h1 Do weryfikacji
 
-- if @words.size > 0
+- if @words.any?
   = render 'words'
 - else
   %p Brak słówek do weryfikacji.

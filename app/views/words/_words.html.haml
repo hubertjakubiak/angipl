@@ -33,7 +33,7 @@
           = word.bad_count
           )
         %td
-          = image_tag word.user.avatar.url(:small)
+          = image_tag word.user
           = word.user.try(:name)
         -if current_user.try(:admin?)
           %td

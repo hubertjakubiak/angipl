@@ -133,7 +133,7 @@ class WordsController < ApplicationController
       @good_votes = @word.get_upvotes.size
       @bad_votes = @word.get_downvotes.size
 
-      if (@good_votes - @bad_votes) >=1
+      if (@good_votes - @bad_votes) >=10
         Word.find(@word.id).update(verified: true)
       end
 
