@@ -13,6 +13,7 @@ class Word < ActiveRecord::Base
   before_validation :strip_whitespace
 
   has_many :word_categories
+  has_many :comments
   has_many :categories, through: :word_categories
 
   scope :verified , lambda { where(:verified => true)}
