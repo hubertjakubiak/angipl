@@ -22,4 +22,8 @@ module WordsHelper
     number_to_percentage(100 - (good_count.to_f / (good_count + bad_count) * 100), { :precision => 1})
   end
 
+  def my_words_size(user_id)
+    Word.my_words(user_id).size
+  end
+
 end

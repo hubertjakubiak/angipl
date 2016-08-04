@@ -19,6 +19,7 @@ class Word < ActiveRecord::Base
   scope :verified , lambda { where(:verified => true)}
   scope :notverified , lambda { where(:verified => false)}
   scope :sorted , lambda { order('created_at DESC') }
+  scope :my_words , -> (id) { where(:user_id => id, :verified => true) }
 
   self.per_page = 20
 
