@@ -1,0 +1,10 @@
+pl:
+  activerecord:
+    errors:
+      models:
+        word:
+          attributes:
+            pl:
+              blank: 'To pole nie może być puste'
+            en:
+              blank: 'To pole nie może być puste'

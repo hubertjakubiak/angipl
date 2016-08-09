@@ -35,27 +35,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-end
 
 gem 'haml', '~> 4.0.5'
 gem "haml-rails", "~> 0.9"
-
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
-
 gem 'devise'
-
 gem 'simple_form'
 gem 'jquery-turbolinks'
 gem 'rails_12factor', group: :production
@@ -68,7 +53,26 @@ gem 'will_paginate-bootstrap'
 gem 'rails_admin'
 gem 'cancancan', '~> 1.10'
 gem "paperclip", "~> 5.0.0"
+gem 'decent_exposure', '3.0.0'
+gem 'decent_decoration'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem 'byebug'
+  gem 'factory_girl_rails'
+  gem 'spring'
+  gem 'web-console', '~> 2.0'
+end
+
+group :production do
+  gem 'puma'
+  gem 'rails_12factor'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
