@@ -6,5 +6,10 @@ pl:
           attributes:
             pl:
               blank: 'To pole nie może być puste'
+              taken: 'Istnieje już takie tłumaczenie.'
             en:
               blank: 'To pole nie może być puste'
+              taken: 'Istnieje już takie tłumaczenie.'
+
+            categories:
+              blank: 'Musisz wybrać kategorię.'

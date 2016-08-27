@@ -43,7 +43,6 @@ gem 'sass-rails', '>= 3.2'
 gem 'devise'
 gem 'simple_form'
 gem 'jquery-turbolinks'
-gem 'rails_12factor', group: :production
 gem 'active_link_to'
 gem 'commontator', '~> 4.11.1'
 gem 'devise-i18n'
@@ -53,16 +52,19 @@ gem 'will_paginate-bootstrap'
 gem 'rails_admin'
 gem 'cancancan', '~> 1.10'
 gem "paperclip", "~> 5.0.0"
-gem 'decent_exposure', '3.0.0'
-gem 'decent_decoration'
+gem 'draper', '~> 2.1'
+gem 'decent_exposure', '~> 2.3', '>= 2.3.3'
+gem 'decent_decoration', '~> 0.0.6'
+gem 'faker', '~> 1.6', '>= 1.6.3'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'spring'
   gem 'web-console', '~> 2.0'
+  gem "better_errors"
+  gem 'capybara'
 end
 
 group :production do
@@ -71,8 +73,9 @@ group :production do
 end
 
 group :test do
-  gem 'capybara'
   gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'simplecov', :require => false
 end

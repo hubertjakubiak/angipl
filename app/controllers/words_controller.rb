@@ -14,7 +14,7 @@ class WordsController < ApplicationController
   end
 
   def my
-    authorize! :my_words, @words, :message => "Musisz się zalogować, aby dodać swoje słówka."
+    authorize! :my_words, @words, :message => "Musisz się zalogować, aby dodać swoje słówka.xxx"
     @user = current_user
     @words = @user.words.sorted.paginate(:page => params[:page])
 
@@ -38,9 +38,9 @@ class WordsController < ApplicationController
   # POST /words
   # POST /words.json
   def create
-    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko."
     @user = current_user
     @word = @user.words.build(word_params)
+    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko.bbbb"
 
     respond_to do |format|
       if @word.save
