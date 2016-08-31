@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-feature 'User can login' do
+RSpec.feature "User", type: :feature do
 
-  before(:all) do
+  before(:each) do
 
     category = FactoryGirl.create(:category)
     
@@ -10,7 +10,7 @@ feature 'User can login' do
 
   end
 
-  it 'user can login' do
+  scenario 'can login' do
 
     sign_in
     expect(page).to have_content 'Wyloguj się'

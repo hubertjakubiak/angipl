@@ -83,7 +83,8 @@ class WordsController < ApplicationController
   end
 
   def game
-    rand = rand(1..3)
+    #rand = rand(1..3)
+    rand = 4
     ids = Word.verified.pluck(:id).shuffle[0..rand]
     @words = Word.where(id: ids).order('random()')
     @first_word = @words.first
