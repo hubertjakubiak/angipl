@@ -15,8 +15,16 @@ RSpec.feature "User add comment", type: :feature do
   scenario 'when sign in' do
     visit word_path(id: 1)
     fill_in 'Treść komentarza:', with: 'Taki tam komentarz'
-
+    click_button('Dodaj komentarz')
     expect(page).to have_content 'Taki tam komentarz'
+
+  end
+
+  scenario 'when sign in and empty comment' do
+    visit word_path(id: 1)
+    fill_in 'Treść komentarza:', with: ''
+    click_button('Dodaj komentarz')
+    expect(page).to have_content 'To pole nie może być puste'
 
   end
 
