@@ -6,6 +6,7 @@ class Ability
       can :manage, :all
     elsif user
       can :create, Word
+      can :create, Comment
       can :my_words, Word
       can :to_verify, Word
 

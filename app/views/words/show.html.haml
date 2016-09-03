@@ -17,11 +17,12 @@ Dobre tłumaczenie:
 Złe tłumaczenie:
 = @word.get_downvotes.size 
 %br/
-%h3 
-  Komentarze (
-  = @word.comments.size
-  )
-- @word.comments.each do |comment|
-  = render comment
+- if can? :create, @comment
+  %h3 
+    Komentarze (
+    = @word.comments.size
+    )
+  - @word.comments.each do |comment|
+    = render comment
 
-= render 'comments/form'
+  = render 'comments/form'
