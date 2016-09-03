@@ -5,5 +5,6 @@ FactoryGirl.define do
     pl { Faker::Lorem.word  }
     categories {[FactoryGirl.create(:category)]}
     verified { true }
+    user_id { 1 }
   end
 end

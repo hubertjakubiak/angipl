@@ -6,7 +6,7 @@ RSpec.feature "User create word", type: :feature do
   background do
 
     category = FactoryGirl.create(:category)
-    
+    user = FactoryGirl.create(:user)
     10.times { word = FactoryGirl.create(:word) }
 
     sign_in
