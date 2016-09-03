@@ -10,7 +10,7 @@ class WordsController < ApplicationController
   # GET /words/1
   # GET /words/1.json
   def show
-    @comment = @word.comments.build
+    
   end
 
   def my
