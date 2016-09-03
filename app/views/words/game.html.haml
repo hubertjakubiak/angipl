@@ -6,7 +6,7 @@
 .row
   .col-md-6.col-xs-12.col-md-offset-3.text-center
     %p
-      .page-header.lead=@first_word.pl
+      = link_to @first_word.pl, word_path(@first_word.id), {:class=>"word btn btn-primary btn-lg", :target => "_blank"}
     %p
     - if @first_word.good_count != 0 || @first_word.bad_count != 0
       .progress{"data-placement" => "top", "data-toggle" => "tooltip", :title => "Poziom trudności słówka na podstawie odpowiedzi użytkowników."}

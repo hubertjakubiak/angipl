@@ -2,7 +2,7 @@ $(function(){
     $('body').css('background-color', 'blue !important');
 });
 
-$('.word').addClass('disabled');
+$('.word.btn-default').addClass('disabled');
 
 <% if @result == "1" %>
   $('[data-word="<%=j @en %>"]').addClass('btn-success');
