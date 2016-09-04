@@ -10,7 +10,7 @@ module WordsHelper
   def bad_answer
     @bad_count = Stat.user_words(current_user.id).increment!(:bad_count) if current_user
     Word.where(:id => @correct_answer_id).first.increment!(:bad_count)
-    Stat.user_words(current_user.id).update_attribute(:points, 0)
+    Stat.user_words(current_user.id).update_attribute(:points, 0) if current_user
   end
 
   def correctness(good_count, bad_count)
