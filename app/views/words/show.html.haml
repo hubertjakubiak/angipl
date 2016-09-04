@@ -1,29 +1,39 @@
 - title "#{@word.pl} po angielsku to #{@word.en}"
-%h1= @word.en
-
-%h2= @word.pl
-
-%p
-  %strong Dodane przez:
-  = @word.user.name
-= link_to 'Edit', edit_word_path(@word)
-|
-= link_to 'Back', words_path
-
-%br/
-Dobre tłumaczenie:
-= @word.get_upvotes.size 
-%br/
-Złe tłumaczenie:
-= @word.get_downvotes.size 
-%br/
-- if can? :create, Comment
-  = render 'comments/form'
-  %h3 
-    Komentarze (
-    = @word.comments.count
-    )
-  - @word.comments.each do |comment|
-    = render comment
+.row
+  .col-md-6
+    %h1 Dane słówka 
+    %p
+      %strong Angielski: 
+      = @word.en
+    %p
+      %strong Polski: 
+      = @word.pl
+    %p
+      %strong Kategoria:
+      = @word.categories.map{|p| p.name}.join(", ")
+    %p
+      %strong Dobre tłumaczenie:
+      = @word.get_upvotes.size 
+    %p
+      %strong Złe tłumaczenie:
+      = @word.get_downvotes.size 
+    %p
+      %strong Dodane przez:
+      = @word.user.name
+  - if can? :edit, @word
+    .col-md-6
+      %h2 Zarządzaj
+      = link_to 'Edytuj słówko', edit_word_path(@word)
+.row
+  .col-md-6
+    %h3 
+      Komentarze (
+      = @word.comments.count
+      )
+    - if @word.comments.any? && !@word.comments[0].new_record?
+      - @word.comments.each do |comment|
+        = render comment
+    - if can? :create, Comment
+      = render 'comments/form'
 
   
