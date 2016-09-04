@@ -32,7 +32,8 @@
       )
     - if @word.comments.any? && !@word.comments[0].new_record?
       - @word.comments.each do |comment|
-        = render comment
+        - unless comment.new_record?
+          = render comment
     - if can? :create, Comment
       = render 'comments/form'
 
