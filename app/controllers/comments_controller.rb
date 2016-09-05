@@ -15,6 +15,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def index
+    @post = Word.find(params[:word_id])
+    
+    respond_to do |format|
+      format.json { render :json => {:comments => @post.comments} }
+    end
+  end
+
   def destroy
   end
 

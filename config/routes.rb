@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   resources :words do
 
-    resources :comments, only: [:create]
+    resources :comments
 
     collection do
       get 'search'

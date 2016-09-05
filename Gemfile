@@ -56,6 +56,7 @@ gem 'draper', '~> 2.1'
 gem 'decent_exposure', '~> 2.3', '>= 2.3.3'
 gem 'decent_decoration', '~> 0.0.6'
 gem 'faker', '~> 1.6', '>= 1.6.3'
+gem 'react-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
