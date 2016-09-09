@@ -2,13 +2,8 @@ require 'spec_helper'
 
 RSpec.feature "User", type: :feature do
 
-  before(:each) do
-
-    category = FactoryGirl.create(:category)
-    
-    10.times { word = FactoryGirl.create(:word) }
-
-  end
+  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
+  let!(:user) {FactoryGirl.create(:user)}
 
   scenario 'can login' do
 

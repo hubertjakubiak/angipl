@@ -2,12 +2,10 @@ require 'spec_helper'
 
 RSpec.feature "User create word", type: :feature do
 
-
+  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
+  let!(:user) {FactoryGirl.create(:user)}
+  
   background do
-
-    category = FactoryGirl.create(:category)
-    user = FactoryGirl.create(:user)
-    10.times { word = FactoryGirl.create(:word) }
 
     sign_in
     expect(page).to have_content 'Wyloguj się'

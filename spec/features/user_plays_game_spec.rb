@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "User plays game", type: :feature do
-  let!(:word) {FactoryGirl.create_list(:word, 3)}
+  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
   let!(:cat_word) {FactoryGirl.create(:word, en: 'cat', pl: 'kot')}
   let!(:dog_word) {FactoryGirl.create(:word, en: 'dog', pl: 'pies')}
 

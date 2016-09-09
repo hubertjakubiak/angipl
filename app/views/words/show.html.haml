@@ -33,7 +33,7 @@
     - if @word.comments.any? && !@word.comments[0].new_record?
       - @word.comments.each do |comment|
         - unless comment.new_record?
-          = react_component "Comment", {comment: comment.content}
+          = render comment
     - if can? :create, Comment
       = render 'comments/form'
 = react_component "CommentsContainer", {commentsPath: word_comments_path(@word)}

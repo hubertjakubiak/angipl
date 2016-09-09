@@ -2,17 +2,17 @@ require 'spec_helper'
 
 RSpec.feature "User add comment", type: :feature do
 
-  background do
-    
-    10.times { word = FactoryGirl.create(:word) }
+  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
+  let!(:user) {FactoryGirl.create(:user)}
 
+  background do
     sign_in
     expect(page).to have_content 'Wyloguj się'
     visit game_words_path
   end
 
 
-  scenario 'when sign in' do
+  scenario 'when sign in', js: true do
     visit word_path(id: 1)
     fill_in 'Treść komentarza:', with: 'Taki tam komentarz'
     click_button('Dodaj komentarz')

@@ -2,13 +2,10 @@ require 'spec_helper'
 
 RSpec.feature "User can ", type: :feature do
 
+  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
+  let!(:user) {FactoryGirl.create(:user)}
 
   before(:each) do
-
-    category = FactoryGirl.create(:category)
-    
-    10.times { word = FactoryGirl.create(:word) }
-
     sign_in
     expect(page).to have_content 'Wyloguj się'
     visit game_words_path
