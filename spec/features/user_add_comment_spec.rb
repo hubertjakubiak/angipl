@@ -12,7 +12,7 @@ RSpec.feature "User add comment", type: :feature do
   end
 
 
-  scenario 'when sign in', js: true do
+  scenario 'when sign in' do
     visit word_path(id: 1)
     fill_in 'Treść komentarza:', with: 'Taki tam komentarz'
     click_button('Dodaj komentarz')
