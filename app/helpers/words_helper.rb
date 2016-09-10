@@ -5,34 +5,38 @@ module WordsHelper
     Word.where(:id => @correct_answer_id).first.increment!(:good_count)
     rand = rand(0..100)
 
-    @diff = (Time.now.to_i - time.to_i)
+    diff = (Time.now.to_i - time.to_i)
 
-    case @diff
-    when 0
-      @diff *= 100
-    when 1
-      @diff *= 90
-    when 2
-      @diff *= 80
-    when 3
-      @diff *= 70
-    when 4
-      @diff *= 60
-    when 5
-      @diff *= 50
-    when 6
-      @diff *= 40
-    when 7
-      @diff *= 30
-    when 8
-      @diff *= 20
-    when 9
-      @diff *= 10
-    else
-      @diff = 1
+    if diff.between?(0, 100)
+      case diff
+      when 0
+        diff = 1000
+      when 1
+        diff = 500
+      when 2
+        diff = 400
+      when 3
+        diff = 300
+      when 4
+        diff = 200
+      when 5
+        diff = 100
+      when 6
+        diff = 50
+      when 7
+        diff = 25
+      when 8
+        diff = 10
+      when 9
+        diff = 5
+      else
+        diff = 1
+      end
+    else 
+      diff = 1
     end
 
-    Stat.user_words(current_user.id).increment!(:points, by = @diff) if current_user
+    Stat.user_words(current_user.id).increment!(:points, by = diff) if current_user
   end
 
   def bad_answer
