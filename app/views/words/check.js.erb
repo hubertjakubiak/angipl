@@ -7,7 +7,7 @@ $('.word.btn-default').addClass('disabled');
 <% if @result == "1" %>
   $('[data-word="<%=j @en %>"]').addClass('btn-success');
   location.reload(); 
-  <% good_answer %>
+  <% good_answer(@time) %>
 
   var my_good_count = $('#my_good_count');
   var num = parseInt(my_good_count.text());

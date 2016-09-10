@@ -83,6 +83,7 @@ class WordsController < ApplicationController
   end
 
   def game
+
     rand = rand(1..3)
     ids = Word.verified.pluck(:id).shuffle[0..rand]
     @words = Word.where(id: ids).order('random()')
@@ -107,6 +108,7 @@ class WordsController < ApplicationController
 
     @en = params[:en]
     @pl = params[:pl]
+    @time = params[:time]
 
     @correct_answer = Word.find_by_pl(@pl).en
     @correct_answer_id = Word.find_by_pl(@pl).id

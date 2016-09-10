@@ -1,10 +1,38 @@
 module WordsHelper
 
-  def good_answer
+  def good_answer(time)
     @good_count = Stat.user_words(current_user.id).increment!(:good_count) if current_user
     Word.where(:id => @correct_answer_id).first.increment!(:good_count)
     rand = rand(0..100)
-    Stat.user_words(current_user.id).increment!(:points, by = rand) if current_user
+
+    @diff = (Time.now.to_i - time.to_i)
+
+    case @diff
+    when 0
+      @diff *= 100
+    when 1
+      @diff *= 90
+    when 2
+      @diff *= 80
+    when 3
+      @diff *= 70
+    when 4
+      @diff *= 60
+    when 5
+      @diff *= 50
+    when 6
+      @diff *= 40
+    when 7
+      @diff *= 30
+    when 8
+      @diff *= 20
+    when 9
+      @diff *= 10
+    else
+      @diff = 1
+    end
+
+    Stat.user_words(current_user.id).increment!(:points, by = @diff) if current_user
   end
 
   def bad_answer
