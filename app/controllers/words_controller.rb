@@ -89,7 +89,7 @@ class WordsController < ApplicationController
 
     if params[:category] && @category
       @category = Category.find_by_name(params[:category])
-      @word_from_category = @category.words
+      @word_from_category = @category.words.where(:verified => true)
 
       rand = rand(1..3)
       ids = @word_from_category.pluck(:id).shuffle[0..rand]
