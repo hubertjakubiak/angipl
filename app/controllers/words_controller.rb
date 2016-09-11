@@ -84,10 +84,27 @@ class WordsController < ApplicationController
 
   def game
 
-    rand = rand(1..3)
-    ids = Word.verified.pluck(:id).shuffle[0..rand]
-    @words = Word.where(id: ids).order('random()')
-    @first_word = @words.first
+    #check if user select category
+    @category = Category.find_by_name(params[:category])
+
+    if params[:category] && @category
+      @category = Category.find_by_name(params[:category])
+      @word_from_category = @category.words
+
+      rand = rand(1..3)
+      ids = @word_from_category.pluck(:id).shuffle[0..rand]
+      @words = @word_from_category.where(id: ids).order('random()')
+      @first_word = @words.first
+
+    else
+      rand = rand(1..3)
+      ids = Word.verified.pluck(:id).shuffle[0..rand]
+      @words = Word.where(id: ids).order('random()')
+      @first_word = @words.first
+    end
+    
+
+    @categories = Category.all
 
     #create stats of user if not exists earlier
     @create_stat = Stat.where(:user_id => current_user.id).first_or_create if current_user

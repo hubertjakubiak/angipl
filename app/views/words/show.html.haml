@@ -18,6 +18,9 @@
       %strong Złe tłumaczenie:
       = @word.get_downvotes.size 
     %p
+      %strong Zweryfikowane:
+      = @word.verified ? 'Tak' : 'Nie'
+    %p
       %strong Dodane przez:
       = @word.user.name
   - if can? :edit, @word
