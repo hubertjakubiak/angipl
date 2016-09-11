@@ -32,7 +32,7 @@ RSpec.feature "User add comment", type: :feature do
     logout
     visit word_path(id: 1)
 
-    expect(page).not_to have_content 'Treść komentarza:'
+    expect(page).to have_content 'Zaloguj się, aby dodać komentarz'
 
   end
 

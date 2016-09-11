@@ -1,7 +1,7 @@
 - title "#{@word.pl} po angielsku to #{@word.en}"
 .row
   .col-md-6
-    %h1 Dane słówka 
+    %h1 Słówko
     %p
       %strong Angielski: 
       = @word.en
@@ -36,6 +36,7 @@
           = render comment
     - if can? :create, Comment
       = render 'comments/form'
-= react_component "CommentsContainer", {commentsPath: word_comments_path(@word)}
+    - else
+      = link_to "Zaloguj się, aby dodać komentarz", new_user_session_path
 
   

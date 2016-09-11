@@ -8,7 +8,6 @@ class Word < ActiveRecord::Base
   validates_uniqueness_of :en, :scope => :pl, :message => "Istnieje już takie tłumaczenie tego słówka."
   validates_uniqueness_of :pl, :scope => :en, :message => "Istnieje już takie tłumaczenie tego słówka."
   belongs_to :user
-  acts_as_commontable
   acts_as_votable
   before_validation :strip_whitespace
 

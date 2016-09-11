@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904154726) do
+ActiveRecord::Schema.define(version: 20160911085559) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -159,7 +159,6 @@ ActiveRecord::Schema.define(version: 20160904154726) do
     t.integer  "good_count", default: 0
     t.integer  "bad_count",  default: 0
     t.boolean  "verified",   default: false
-    t.integer  "level",      default: 0
   end
 
   add_index "words", ["user_id"], name: "index_words_on_user_id"
