@@ -42,7 +42,7 @@
     .form-group
       %label{:for => "sel1"} Wybierz kategorię:
       %select#sel1.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
-        %option Wszystkie
+        %option{:value => root_path} Wszystkie
         - @categories.each do |category|
           %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name
 
