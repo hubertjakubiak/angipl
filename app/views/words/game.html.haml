@@ -44,8 +44,7 @@
       %select#sel1.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
         %option{:value => root_path} Wszystkie
         - @categories.each do |category|
-          - cache category do
-            %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name
+          %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name
 
   .col-md-6.col-xs-12.col-md-offset-3.text-center.top-buffer
     %table.table.table-bordered
