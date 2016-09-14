@@ -41,7 +41,7 @@
   .col-md-4.col-xs-12.col-md-offset-4.text-center.top-buffer
     .form-group
       %label{:for => "sel1"} Wybierz kategorię:
-      %select#sel1.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
+      %select#select-category.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
         %option{:value => root_path} Wszystkie
         - @categories.each do |category|
           %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name

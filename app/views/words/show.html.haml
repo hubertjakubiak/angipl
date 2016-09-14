@@ -16,11 +16,13 @@
     %p
       %span.glyphicon.glyphicon-thumbs-up
       %strong Dobre tłumaczenie:
-      = @word.get_upvotes.size 
+      %span.badge
+        = @word.get_upvotes.size 
     %p
       %span.glyphicon.glyphicon-thumbs-down
       %strong Złe tłumaczenie:
-      = @word.get_downvotes.size 
+      %span.badge
+        = @word.get_downvotes.size 
   .col-md-4
     %p
       %strong Zweryfikowane:
