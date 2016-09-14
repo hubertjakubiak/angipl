@@ -28,6 +28,9 @@
         %span.label.label-default
           Twój wynik:
           = current_user.stat.points
+          (
+          = current_user.rank
+          )
     - unless user_signed_in?
       .well.well-sm.top-buffer
         = link_to "Zaloguj się", new_user_session_path
