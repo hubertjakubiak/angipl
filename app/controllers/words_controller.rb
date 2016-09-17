@@ -102,6 +102,13 @@ class WordsController < ApplicationController
       @words = current_user.words.where(id: ids).order('random()')
       @first_word = @words.first
 
+      #check how many words user has
+      if @words.count < 4
+        respond_to do |format|
+          format.html { redirect_to words_url, notice: 'Musisz dodać minimum 5 swoich słówek' }
+        end
+      end
+
     else
       rand = rand(1..3)
       ids = Word.verified.pluck(:id).shuffle[0..rand]
