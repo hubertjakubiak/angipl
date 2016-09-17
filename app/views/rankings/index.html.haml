@@ -1,5 +1,20 @@
 %h1 Ranking
 
-%ul
-- @users.each_with_index do |user, i|
-  %li #{i+1}. #{user.name} (#{user.stat.points})
+%table.table
+  %thead
+    %tr
+      %th Pozycja
+      %th Użytkownik
+      %th Punkty
+      %th Dobre odpowiedzi
+      %th Złe odpowiedzi
+      %th Poprawność
+  %tbody
+    - @users.each_with_index do |user, i|
+      %tr
+        %td= i + 1
+        %td= user.name
+        %td= user.stat.points
+        %td= user.stat.good_count
+        %td= user.stat.bad_count
+        %td= correctness(user.stat.good_count, user.stat.bad_count)
