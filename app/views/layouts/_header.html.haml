@@ -11,15 +11,14 @@
       %ul.nav.navbar-nav
         %li{:class => "#{'active' if current_page?(words_path)}"}
           = active_link_to 'Lista słówek', words_path
+        %li{:class => "#{'active' if current_page?(rankings_path)}"}
+          = active_link_to 'Ranking', rankings_path
         - if can? :my_words, Word
           %li{:class => "#{'active' if current_page?(my_words_path)}"}
             = active_link_to 'Moje słówka', my_words_path
         - if can? :to_verify, Word
           %li{:class => "#{'active' if current_page?(to_verify_words_path)}"}
             = active_link_to 'Do weryfikacji', to_verify_words_path
-        %li{:class => "#{'active' if current_page?(rankings_path)}"}
-          = active_link_to 'Ranking', rankings_path
-
         - if can? :create, Word
           %li{:class => "#{'active' if current_page?(new_word_path)}"}
             = active_link_to 'Dodaj słówko', new_word_path

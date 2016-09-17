@@ -46,6 +46,8 @@
       %label{:for => "sel1"} Wybierz kategorię:
       %select#select-category.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
         %option{:value => root_path} Wszystkie
+        - if user_signed_in?
+          %option{:value => root_path(:category => 'Moje słówka'), :selected => params[:category] == "Moje słówka"} Moje słówka
         - @categories.each do |category|
           %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name
 

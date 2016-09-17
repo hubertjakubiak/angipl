@@ -14,10 +14,9 @@ class WordsController < ApplicationController
   end
 
   def my
-    authorize! :my_words, @words, :message => "Musisz się zalogować, aby dodać swoje słówka."
+    authorize! :my_words, Word, :message => "Musisz się zalogować, aby mieć swoje słówka."
     @user = current_user
     @words = @user.words.sorted.paginate(:page => params[:page])
-
   end
 
   def to_verify
@@ -94,6 +93,13 @@ class WordsController < ApplicationController
       rand = rand(1..3)
       ids = @word_from_category.pluck(:id).shuffle[0..rand]
       @words = @word_from_category.where(id: ids).order('random()')
+      @first_word = @words.first
+
+    elsif params[:category] == "Moje słówka"
+
+      rand = rand(1..3)
+      ids = Word.verified.pluck(:id).shuffle[0..rand]
+      @words = current_user.words.where(id: ids).order('random()')
       @first_word = @words.first
 
     else
