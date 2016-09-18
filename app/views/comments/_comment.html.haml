@@ -1,4 +1,7 @@
 %p= comment.content
-%p 
-  %strong Autor:
-  = comment.user.try(:name)
+%p
+  %strong
+    = comment.user.try(:name)
+  |
+  = comment.created_at.strftime("%m-%e-%Y %H:%M")
+%hr/
