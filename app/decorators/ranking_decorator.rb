@@ -10,4 +10,14 @@ class RankingDecorator < Draper::Decorator
   #     end
   #   end
 
+ def name
+
+    if h.current_user == object
+      h.content_tag(:strong, object.name)
+    else
+      object.name
+    end
+
+  end
+
 end
