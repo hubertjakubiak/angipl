@@ -129,7 +129,7 @@ class WordsController < ApplicationController
     # check if there is enough words in database
     if Word.verified.size < 5
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
-      redirect_to new_word_path
+      redirect_to new_user_registration_path
     end
 
   end

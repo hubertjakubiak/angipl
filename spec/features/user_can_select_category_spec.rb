@@ -9,7 +9,7 @@ RSpec.feature "User", type: :feature do
   end
 
   scenario 'can select category', js: true do
-    find('#select-category').find(:xpath, 'option[2]').click
+    find('#select-category').find(:xpath, 'option[text() = "Biznes"]').click
     expect(page).to have_content('Biznes')
     expect(page).to have_current_path(root_path(category: 'Biznes'))
   end
