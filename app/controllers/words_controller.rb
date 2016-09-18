@@ -123,7 +123,7 @@ class WordsController < ApplicationController
     end
     
 
-    @categories = Category.all
+    @categories = Category.all.order("name ASC")
 
     #create stats of user if not exists earlier
     @create_stat = Stat.where(:user_id => current_user.id).first_or_create if current_user
