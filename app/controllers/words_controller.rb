@@ -98,14 +98,14 @@ class WordsController < ApplicationController
 
       rand = rand(1..3)
       ids = @word_from_category.pluck(:id).shuffle[0..rand]
-      @words = @word_from_category.where(id: ids).order('random()').select(:en).distinct
+      @words = @word_from_category.where(id: ids).order('random()')
       @first_word = @words.first
 
     elsif params[:category] == "Moje słówka"
 
       rand = rand(1..3)
       ids = Word.verified.pluck(:id).shuffle[0..rand]
-      @words = current_user.words.where(id: ids).order('random()').select(:en).distinct
+      @words = current_user.words.where(id: ids).order('random()')
       @first_word = @words.first
 
       #check how many words user has
@@ -118,7 +118,7 @@ class WordsController < ApplicationController
     else
       rand = rand(1..3)
       ids = Word.verified.pluck(:id).shuffle[0..rand]
-      @words = Word.where(id: ids).order('random()').select(:en).distinct
+      @words = Word.where(id: ids).order('random()')
       @first_word = @words.first
     end
     
