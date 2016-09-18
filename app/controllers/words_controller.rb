@@ -90,6 +90,12 @@ class WordsController < ApplicationController
       @category = Category.find_by_name(params[:category])
       @word_from_category = @category.words.where(:verified => true)
 
+      if @word_from_category.count <= 5
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.' }
+        end
+      end
+
       rand = rand(1..3)
       ids = @word_from_category.pluck(:id).shuffle[0..rand]
       @words = @word_from_category.where(id: ids).order('random()')
