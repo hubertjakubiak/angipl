@@ -24,8 +24,8 @@ class Word < ActiveRecord::Base
 
   def self.search(search)
     if search
-      self.where("lower(words.en) = '#{search.downcase}' OR lower(words.pl)  = '#{search.downcase}' ")
-      #self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search}%", "%#{search}%")
+      #self.where("lower(words.en) LIKE '#{search.downcase}' OR lower(words.pl)  = '#{search.downcase}' ")
+      self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search.downcase}%", "%#{search.downcase}%")
     end
   end
 
