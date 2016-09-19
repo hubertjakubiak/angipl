@@ -100,6 +100,7 @@ class WordsController < ApplicationController
       ids = @word_from_category.pluck(:id).shuffle[0..rand]
       @words = @word_from_category.where(id: ids).order('random()')
       @first_word = @words.first
+      @words = @word.map { |word| word.en }.uniq
 
     elsif params[:category] == "Moje słówka"
 
@@ -107,6 +108,7 @@ class WordsController < ApplicationController
       ids = Word.verified.pluck(:id).shuffle[0..rand]
       @words = current_user.words.where(id: ids).order('random()')
       @first_word = @words.first
+      @words = @word.map { |word| word.en }.uniq
 
       #check how many words user has
       if current_user.words.count < 4
@@ -120,6 +122,7 @@ class WordsController < ApplicationController
       ids = Word.verified.pluck(:id).shuffle[0..rand]
       @words = Word.where(id: ids).order('random()')
       @first_word = @words.first
+      @words = @word.map { |word| word.en }.uniq
     end
     
 
