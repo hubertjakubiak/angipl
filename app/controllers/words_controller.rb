@@ -83,6 +83,13 @@ class WordsController < ApplicationController
 
   def game
 
+
+    # check if there is enough words in database
+    if isEnoughWordsToPlayGame
+      flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
+      redirect_to words_path
+    end
+
     #check if user select category
     @category = Category.find_by_name(params[:category])
 
@@ -135,11 +142,6 @@ class WordsController < ApplicationController
 
     #get stats
     @stats = Stat.find_by_user_id(current_user.id) if current_user
-    # check if there is enough words in database
-    if Word.verified.size < 5
-      flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
-      redirect_to words_path
-    end
 
   end
 
@@ -231,6 +233,14 @@ class WordsController < ApplicationController
       respond_to do |format|
         flash[:error] = 'Musisz się zalogować, aby oceniać tłumaczenia.'
         format.js {render :js => "window.location.reload();"}
+      end
+    end
+
+    def isEnoughWordsToPlayGame
+      if Word.verified.size < 5
+        true
+      else
+        false
       end
     end
 end
