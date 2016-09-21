@@ -83,21 +83,16 @@ class WordsController < ApplicationController
 
   def game
 
-
-    # check if there is enough words in database
-    if isEnoughWordsToPlayGame
+    unless is_enough_words_to_play_game?
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
       redirect_to words_path
     end
 
-    #check if user select category
-    @category = Category.find_by_name(params[:category])
-
-    if params[:category] && @category
+    if category_is_defined_and_exists?
       @category = Category.find_by_name(params[:category])
       @word_from_category = @category.words.where(:verified => true)
 
-      if @word_from_category.count <= 5
+      unless category_has_enough_words?
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.' }
         end
@@ -236,11 +231,17 @@ class WordsController < ApplicationController
       end
     end
 
-    def isEnoughWordsToPlayGame
-      if Word.verified.size < 5
-        true
-      else
-        false
-      end
+    def is_enough_words_to_play_game?
+      Word.verified.size > 5 ? true : false
+    end
+
+    def category_has_enough_words?
+      @word_from_category.count >= 5 ? true : false
+    end
+
+    def category_is_defined_and_exists?
+
+      @category = Category.find_by_name(params[:category])
+      params[:category] && @category ? true : false
     end
 end
