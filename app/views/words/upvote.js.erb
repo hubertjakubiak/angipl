@@ -1,5 +1,5 @@
-$("#word_good_count_<%= @word.id%>").html("<%= @good_votes %>");
-$("#word_bad_count_<%= @word.id%>").html("<%= @bad_votes %>");
+$("#word_good_count_<%= word.id%>").html("<%= @good_votes %>");
+$("#word_bad_count_<%= word.id%>").html("<%= @bad_votes %>");
 
 <% unless current_user %>
 alert('Zaloguj się, aby głosować.');

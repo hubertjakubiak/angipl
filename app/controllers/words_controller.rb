@@ -3,6 +3,7 @@ class WordsController < ApplicationController
   expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
   expose(:unverified_words) { Word.unverified.paginate(:page => params[:page]) }
+  expose(:verified_words) { Word.verified}
   expose(:word, attributes: :word_params)
   expose(:comment) { Comment.new }
   expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
@@ -74,7 +75,6 @@ class WordsController < ApplicationController
 
       get_random_words(words: current_user.words)
 
-      #check how many words user has
       if current_user.words.count <= 4
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek' }
@@ -120,18 +120,18 @@ class WordsController < ApplicationController
 
   def upvote
     if current_user
-      @word.upvote_by current_user
+      word.upvote_by current_user
 
       #get votes
-      @good_votes = @word.get_upvotes.size
-      @bad_votes = @word.get_downvotes.size
+      @good_votes = word.get_upvotes.size
+      @bad_votes = word.get_downvotes.size
 
       if (@good_votes - @bad_votes) >=10
-        Word.find(@word.id).update(verified: true)
+        word.update(verified: true)
       end
 
       if current_user.admin?
-        Word.find(@word.id).update(verified: true)
+        word.update(verified: true)
       end
       
       respond_to do |format|
@@ -144,13 +144,13 @@ class WordsController < ApplicationController
 
   def downvote
     if current_user
-      @word.downvote_by current_user
+      word.downvote_by current_user
 
-      @good_votes = @word.get_upvotes.size
-      @bad_votes = @word.get_downvotes.size
+      @good_votes = word.get_upvotes.size
+      @bad_votes = word.get_downvotes.size
 
       if current_user.admin?
-        Word.find(@word.id).update(verified: false)
+        word.update(verified: false)
       end
       
       respond_to do |format|
@@ -183,15 +183,16 @@ class WordsController < ApplicationController
     end
 
     def enough_words?
-      Word.verified.size >= MIN_WORDS_FOR_GAME
+      verified_words.size >= MIN_WORDS_FOR_GAME
     end
 
     def category_has_enough_words?
-      category_words.count >= MIN_WORDS_FOR_CATEGORY
+      puts category_words.count
+      category_words.count >= MIN_WORDS_FOR_CATEGORY ? true :false
     end
 
     def category_is_defined_and_exists?
-      params[:category] && category
+      params[:category] && category_words
     end
 
     def get_random_words(max_answers: 3, words:)
