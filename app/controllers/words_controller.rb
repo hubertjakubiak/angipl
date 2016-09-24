@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
 
   expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
+  expose(:game_words) {Word.verified}
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
   expose(:unverified_words) { Word.unverified.paginate(:page => params[:page]) }
   expose(:verified_words) { Word.verified}
@@ -8,10 +9,15 @@ class WordsController < ApplicationController
   expose(:comment) { Comment.new }
   expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
   expose(:category) { Category.find_by_name(params[:category]) }
-  expose(:category_words) {category.words.where(:verified => true)}
+  expose(:category_words) {category.words.where(:verified => true) if category } 
+  expose(:categories) { Category.all.order("name ASC") }
+  expose(:all_good_count) { Stat.sum(:good_count) }
+  expose(:all_bad_count) { Stat.sum(:bad_count) }
+  expose(:my_stats) { Stat.find_by_user_id(current_user.id) if current_user }
 
   MIN_WORDS_FOR_GAME = 5
   MIN_WORDS_FOR_CATEGORY = 5
+  MIN_WORDS_FOR_MY_WORDS = 5
 
   def my
     authorize! :my_words, Word, :message => "Musisz się zalogować, aby mieć swoje słówka."
@@ -46,8 +52,8 @@ class WordsController < ApplicationController
   end
   
   def destroy
-    authorize! :delete, @word, :message => "Nie możesz usunąć tego słówka."
-    @word.destroy
+    authorize! :delete, word, :message => "Nie możesz usunąć tego słówka."
+    word.destroy
     respond_to do |format|
       format.html { redirect_to words_url, notice: 'Słówka zostało usunięte' }
       format.json { head :no_content }
@@ -73,29 +79,21 @@ class WordsController < ApplicationController
 
     elsif params[:category] == "Moje słówka"
 
-      get_random_words(words: current_user.words)
-
-      if current_user.words.count <= 4
+      unless user_has_enough_my_words?
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek' }
         end
       end
 
+      get_random_words(words: my_words)
+
     else
 
-      get_random_words(words: Word)
+      get_random_words(words: game_words)
 
     end
-    
-
-    @categories = Category.all.order("name ASC")
 
     create_stat_for_user_if_not_exists
-    @all_good_count = Stat.sum(:good_count)
-    @all_bad_count = Stat.sum(:bad_count)
-
-    #get stats
-    @stats = Stat.find_by_user_id(current_user.id) if current_user
 
   end
 
@@ -187,8 +185,11 @@ class WordsController < ApplicationController
     end
 
     def category_has_enough_words?
-      puts category_words.count
-      category_words.count >= MIN_WORDS_FOR_CATEGORY ? true :false
+      category_words.count >= MIN_WORDS_FOR_CATEGORY ? true : false
+    end
+
+    def user_has_enough_my_words?
+      my_words.count >= MIN_WORDS_FOR_MY_WORDS ? true : false
     end
 
     def category_is_defined_and_exists?

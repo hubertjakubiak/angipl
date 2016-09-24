@@ -48,7 +48,7 @@
         %option{:value => root_path} Wszystkie
         - if user_signed_in?
           %option{:value => root_path(:category => 'Moje słówka'), :selected => params[:category] == "Moje słówka"} Moje słówka
-        - @categories.each do |category|
+        - categories.each do |category|
           %option{:value => root_path(:category => category.name), :selected => params[:category] == category.name}= category.name
 
   .col-md-6.col-xs-12.col-md-offset-3.text-center.top-buffer
@@ -63,14 +63,14 @@
         - if current_user
           %tr
             %td Ja
-            %td{:id => 'my_good_count' }= @stats.good_count
-            %td{:id => 'my_bad_count' }= @stats.bad_count
-            %td= correctness(@stats.good_count, @stats.bad_count)
+            %td{:id => 'my_good_count' }= my_stats.good_count
+            %td{:id => 'my_bad_count' }= my_stats.bad_count
+            %td= correctness(my_stats.good_count, my_stats.bad_count)
         %tr
           %td
             %span{"data-placement" => "top", "data-toggle" => "tooltip", :title => "Liczą się tylko odpowiedzi zarejestrowanych użytkowników."}
               Ogółem
-          %td= @all_good_count
-          %td= @all_bad_count
-          %td= correctness(@all_good_count, @all_bad_count)
+          %td= all_good_count
+          %td= all_bad_count
+          %td= correctness(all_good_count, all_bad_count)
           
