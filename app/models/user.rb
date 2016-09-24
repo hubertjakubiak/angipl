@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_one :stat
   validates_uniqueness_of :name
-  validates :name, presence: { message: "nie może być pusta." }
+  validates :name, presence: { message: "To pole nie może być puste." }
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :small => "20x20>" }, :default_url => "/images/:style/default_image.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
