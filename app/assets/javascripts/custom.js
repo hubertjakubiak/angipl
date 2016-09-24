@@ -5,6 +5,11 @@ $(document).ready(function(){
       $( ".answers" ).show();
       $(this).remove();
     });
+
+    setTimeout(function(){
+      $( "#show_answers" ).hide();
+      $( ".answers" ).show();
+    }, 2000);
 });
 
  $(document).bind("ajaxSend", function(){
