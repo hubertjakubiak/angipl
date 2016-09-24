@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.feature "User", type: :feature do
+RSpec.feature "User has ability", type: :feature do
 
-  it "has ability to create word" do
+  it "to create new word" do
       user = FactoryGirl.create(:user)
       ability = Ability.new(user)
       word = Word.new(user: user)

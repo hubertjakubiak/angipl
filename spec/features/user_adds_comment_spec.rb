@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature "User add comment", type: :feature do
+RSpec.feature "User adds comment", type: :feature do
 
   let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
   let!(:user) {FactoryGirl.create(:user)}
@@ -12,7 +12,7 @@ RSpec.feature "User add comment", type: :feature do
   end
 
 
-  scenario 'when sign in' do
+  scenario 'when signed in' do
     visit word_path(id: 1)
     fill_in 'Treść komentarza:', with: 'Taki tam komentarz'
     click_button('Dodaj komentarz')
@@ -20,7 +20,7 @@ RSpec.feature "User add comment", type: :feature do
 
   end
 
-  scenario 'when sign in and empty comment' do
+  scenario 'when signed in and try to add empty comment' do
     visit word_path(id: 1)
     fill_in 'Treść komentarza:', with: ''
     click_button('Dodaj komentarz')
@@ -28,7 +28,7 @@ RSpec.feature "User add comment", type: :feature do
 
   end
 
-  scenario 'when sign out' do
+  scenario 'when signed out' do
     logout
     visit word_path(id: 1)
 

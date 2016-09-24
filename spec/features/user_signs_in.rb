@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec.feature "User", type: :feature do
+RSpec.feature "User signs in", type: :feature do
 
   let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
   let!(:user) {FactoryGirl.create(:user)}
 
-  scenario 'can login' do
+  scenario 'with valid input' do
 
     sign_in
     expect(page).to have_content 'Wyloguj się'

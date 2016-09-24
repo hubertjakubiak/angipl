@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "User can select category", type: :feature do
+RSpec.feature "User selects category", type: :feature do
   let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category, name: 'Biznes')])}
   let!(:category) {FactoryGirl.create(:category, name: 'Sport')}
 
@@ -19,6 +19,12 @@ RSpec.feature "User can select category", type: :feature do
     find('#select-category').find(:xpath, 'option[text() = "Sport"]').click
     expect(page).to have_content('Kategoria musi zawierać minimum 5 słówek.')
     expect(page).to have_current_path(root_path)
+  end
+
+  scenario 'that does not exist', js: true do
+    visit root_path(category: 'XXX') 
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_content('Taka kategoria nie istnieje.')
   end
 
 end

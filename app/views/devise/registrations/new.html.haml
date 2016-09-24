@@ -2,30 +2,13 @@
 .row
   .col-md-4
     %h1 Rejestracja
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = devise_error_messages!
-      .field
-        = f.label :name, "Nazwa użytkownika"
-        %br/
-        = f.text_field :name,  {:class => 'form-control', autofocus: true}
-      .field
-        = f.label :email
-        %br/
-        = f.email_field :email, {:class => 'form-control'}
-      .field
-        = f.label :password, "Hasło"
-        - if @minimum_password_length
-          %em
-            (#{@minimum_password_length} znaków minimum)
-        %br/
-        = f.password_field :password, {:class => 'form-control', autocomplete: 'off' }
-      .field
-        = f.label :password_confirmation, "Potwierdź hasło"
-        %br/
-        = f.password_field :password_confirmation, {:class => 'form-control', autocomplete: 'off' }
-        %br/
-      .actions
-        = f.submit "Zarejestruj się", { :class => 'btn btn-primary'}
-        %br/
-        %br/
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :name, required: true, autofocus: true, label: "Nazwa użytkownika"
+        = f.input :email, required: true
+        = f.input :password, required: true, hint: ("#{@minimum_password_length} znaków minimum" if @minimum_password_length)
+        = f.input :password_confirmation, required: true
+      .form-actions
+        = f.button :submit, "Zarejestruj się", class: 'btn-primary'
     = render "devise/shared/links"

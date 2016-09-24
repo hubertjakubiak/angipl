@@ -6,7 +6,13 @@ $('.word.btn-default').addClass('disabled');
 
 <% if @result == "1" %>
   $('[data-word="<%=j @en %>"]').addClass('btn-success');
+<% if Rails.env.test? %> 
+  setTimeout(function(){ 
+    location.reload(); 
+  },2000)
+<%  else %>
   location.reload(); 
+<%  end %>
   <% good_answer(@time) %>
 
   var my_good_count = $('#my_good_count');

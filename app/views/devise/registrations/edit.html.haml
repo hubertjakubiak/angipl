@@ -1,38 +1,23 @@
 - title "Edytuj profil"
 .row
   .col-md-4
-    %h2
+    %h1
       Edytuj profil
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = devise_error_messages!
-      .field
-        = f.label :name, "Nazwa użytkownika"
-        %br/
-        = f.text_field :name, { :class => 'form-control', autofocus: true}
-      .field
-        = f.label :email
-        %br/
-        = f.email_field :email, { :class => 'form-control' }
-      / .field
-      /   = f.label :avatar
-      /   = f.file_field :avatar
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %div
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-      .field
-        = f.label :password
-        %i (pozostaw puste jeśli nie chcesz nic zmieniać)
-        %br/
-        = f.password_field :password, { :class => 'form-control', :autocomplete => "off", }
-      .field
-        = f.label :password_confirmation
-        %br/
-        = f.password_field :password_confirmation, { :class => 'form-control', :autocomplete => "off" }
-      .field
-        = f.label :current_password
-        %i (potrzebujemy twojego aktualnego hasła, aby potwierdzić zmiany)
-        %br/
-        = f.password_field :current_password, { :class => 'form-control', :autocomplete => "off", }
-      .actions
-        %br/
-        = f.submit "Zapisz zmiany", { :class => 'btn btn-primary'}
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :name, required: true, autofocus: true, label: "Nazwa użytkownika"
+        = f.input :email, required: true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %p
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+        = f.input :password, autocomplete: "off", hint: "zostaw to pole puste, jeśli nie chcesz zmieniać hasła", required: false
+        = f.input :password_confirmation, required: false
+        = f.input :current_password, hint: "potrzebujemy twojego aktualnego hasła, aby zapisać zmiany", required: true
+      .form-actions
+        = f.button :submit, "Zapisz zmiany", class: 'btn-primary'
+      %br/
+    / %h3 Cancel my account
+    / %p
+    /   Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+    / = link_to "Wróć", :back

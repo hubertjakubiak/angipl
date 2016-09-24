@@ -10,11 +10,4 @@
       %th Złe odpowiedzi
       %th Poprawność
   %tbody
-    - @users.each_with_index do |user, i|
-      %tr
-        %td= i + 1
-        %td= user.name
-        %td= user.stat.points
-        %td= user.stat.good_count
-        %td= user.stat.bad_count
-        %td= correctness(user.stat.good_count, user.stat.bad_count)
+    = render partial: 'user', collection: users

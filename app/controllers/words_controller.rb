@@ -3,7 +3,7 @@ class WordsController < ApplicationController
   expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
   expose(:game_words) {Word.verified}
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
-  expose(:unverified_words) { Word.unverified.paginate(:page => params[:page]) }
+  expose(:unverified_words) { Word.unverified.recent.paginate(:page => params[:page]) }
   expose(:verified_words) { Word.verified}
   expose(:word, attributes: :word_params)
   expose(:comment) { Comment.new }
@@ -20,7 +20,7 @@ class WordsController < ApplicationController
   MIN_WORDS_FOR_MY_WORDS = 5
 
   def my
-    authorize! :my_words, Word, :message => "Musisz się zalogować, aby mieć swoje słówka."
+    authorize! :my_words, word, :message => "Musisz się zalogować, aby mieć swoje słówka."
   end
 
   # GET /words/new
@@ -87,6 +87,10 @@ class WordsController < ApplicationController
 
       get_random_words(words: my_words)
 
+    elsif params[:category]
+      respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Taka kategoria nie istnieje.' }
+        end
     else
 
       get_random_words(words: game_words)

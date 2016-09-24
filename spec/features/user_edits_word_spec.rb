@@ -11,15 +11,26 @@ RSpec.feature "User can only edit his words ", type: :feature do
     click_link('Dodaj słówko')
   end
 
-  scenario 'with valid input' do
-    fill_in 'Angielski', with: Faker::Lorem.word
-    fill_in 'Polski', with: Faker::Lorem.word
+  scenario 'that belongs to him' do
+    fill_in 'Angielski', with: 'cat'
+    fill_in 'Polski', with: 'kot'
     find(:css, ".check_boxes[value='1']").set(true)
     click_button 'Zapisz'
     expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
 
-    visit edit_word_path(1)
+    visit edit_word_path(11)
 
+    fill_in 'Angielski', with: 'cat'
+    fill_in 'Polski', with: 'kotek'
+    click_button 'Zapisz'
+
+    visit word_path(11)
+
+    expect(page).to have_content 'kotek'
+  end
+
+  scenario 'that does not belong to him' do
+    visit edit_word_path(1)
     expect(page).to have_content 'Nie możesz edytować tego słówka.'
   end
 
