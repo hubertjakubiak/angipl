@@ -9,6 +9,6 @@
         = submit_tag "Szukaj", :name => nil, class: 'btn btn-primary'
 - if params[:search]
   %p 
-    = "#{@words_count} znalezionych wyników."
-- unless @words.blank?
-  = render 'words'
+    = "#{search_words.count} znalezionych wyników."
+  - unless search_words.blank?
+    = render partial: 'words', locals: {render_words: search_words}

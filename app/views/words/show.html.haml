@@ -1,52 +1,52 @@
-- title "#{@word.pl} po angielsku to #{@word.en}"
+- title "#{word.pl} po angielsku to #{word.en}"
 .row
   .col-md-12
-    %h1= @word.en
+    %h1= word.en
   .col-md-4
     %p
       %strong Angielski: 
-      = @word.en
+      = word.en
     %p
       %strong Polski: 
-      = @word.pl
+      = word.pl
     %p
       %strong Kategoria:
-      = @word.categories.map{|p| p.name}.join(", ")
+      = word.categories.map{|p| p.name}.join(", ")
   .col-md-4
     %p
       %span.glyphicon.glyphicon-thumbs-up
       %strong Dobre tłumaczenie:
       %span.badge
-        = @word.get_upvotes.size 
+        = word.get_upvotes.size 
     %p
       %span.glyphicon.glyphicon-thumbs-down
       %strong Złe tłumaczenie:
       %span.badge
-        = @word.get_downvotes.size 
+        = word.get_downvotes.size 
   .col-md-4
     %p
       %strong Zweryfikowane:
-      = @word.verified ? 'Tak' : 'Nie'
+      = word.verified ? 'Tak' : 'Nie'
     %p
       %strong Dodane przez:
-      = @word.user.name
+      = word.user.name
 .row
   .col-md-6
     %h2
       Komentarze (
-      = @word.comments.count
+      = word.comments.count
       )
-    - if @word.comments.any? && !@word.comments[0].new_record?
-      - @word.comments.each do |comment|
+    - if word.comments.any? && !word.comments[0].new_record?
+      - word.comments.each do |comment|
         - unless comment.new_record?
           = render comment
     - if can? :create, Comment
       = render 'comments/form'
     - else
       = link_to "Zaloguj się, aby dodać komentarz", new_user_session_path
-  - if can? :edit, @word
+  - if can? :edit, word
     .col-md-6
       %h2 Zarządzaj
-      = link_to 'Edytuj słówko', edit_word_path(@word)
+      = link_to 'Edytuj słówko', edit_word_path(word)
 
   

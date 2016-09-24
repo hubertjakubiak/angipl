@@ -1,77 +1,47 @@
 class WordsController < ApplicationController
-  before_action :set_word, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
 
-  # GET /words
-  # GET /words.json
-  def index
-    @words = Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all
-  end
+  expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
+  expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
+  expose(:unverified_words) { Word.unverified.paginate(:page => params[:page]) }
+  expose(:word, attributes: :word_params)
+  expose(:comment) { Comment.new }
+  expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
 
-  # GET /words/1
-  # GET /words/1.json
-  def show
-    @comment = Comment.new
-  end
+  MIN_WORDS_FOR_GAME = 5
+  MIN_WORDS_FOR_CATEGORY = 5
 
   def my
     authorize! :my_words, Word, :message => "Musisz się zalogować, aby mieć swoje słówka."
-    @user = current_user
-    @words = @user.words.sorted.paginate(:page => params[:page])
-  end
-
-  def to_verify
-    @words = Word.notverified.paginate(:page => params[:page])
   end
 
   # GET /words/new
   def new
-    @word = Word.new
-    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko."
+    authorize! :create, word, :message => "Musisz się zalogować, aby dodać nowe słówko."
   end
 
-  # GET /words/1/edit
   def edit
-    authorize! :edit, @word, :message => "Nie możesz edytować tego słówka."
+    authorize! :edit, word, :message => "Nie możesz edytować tego słówka."
   end
 
-  # POST /words
-  # POST /words.json
   def create
-    @user = current_user
-    @word = @user.words.build(word_params)
-    authorize! :create, @word, :message => "Musisz się zalogować, aby dodać nowe słówko.bbbb"
-
-    respond_to do |format|
-      if @word.save
-        format.html { 
-          redirect_to new_word_path
-          flash[:notice] = 'Słówko zostało prawidłowo zapisane. Dodaj następne!'
-        }
-        format.json { render :show, status: :created, location: @word }
-      else
-        format.html { render :new }
-        format.json { render json: @word.errors, status: :unprocessable_entity }
-      end
+    authorize! :create, word, :message => "Musisz się zalogować, aby dodać nowe słówko."
+    word.user = current_user
+    if word.save
+      redirect_to new_word_path
+      flash[:notice] = 'Słówko zostało prawidłowo zapisane. Dodaj następne!'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /words/1
-  # PATCH/PUT /words/1.json
   def update
-    authorize! :update, @word, :message => "Nie możesz edytować tego słówka."
-    respond_to do |format|
-      if @word.update(word_params)
-        format.html { redirect_to @word, notice: 'Słówko został prawidłowo edytowane.' }
-        format.json { render :show, status: :ok, location: @word }
-      else
-        format.html { render :edit }
-        format.json { render json: @word.errors, status: :unprocessable_entity }
-      end
+    if word.update(word_params)
+      redirect_to word_path(word), notice: 'Słówko został prawidłowo edytowane.'
+    else
+      render :edit
     end
   end
-
-  # DELETE /words/1
-  # DELETE /words/1.json
+  
   def destroy
     authorize! :delete, @word, :message => "Nie możesz usunąć tego słówka."
     @word.destroy
@@ -83,14 +53,14 @@ class WordsController < ApplicationController
 
   def game
 
-    unless is_enough_words_to_play_game?
+    unless enough_words?
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
       redirect_to words_path
     end
 
     if category_is_defined_and_exists?
-      @category = Category.find_by_name(params[:category])
-      @word_from_category = @category.words.where(:verified => true)
+
+      @words_from_category = @category.words.where(:verified => true)
 
       unless category_has_enough_words?
         respond_to do |format|
@@ -98,40 +68,29 @@ class WordsController < ApplicationController
         end
       end
 
-      rand = rand(1..3)
-      ids = @word_from_category.pluck(:id).shuffle[0..rand]
-      @words = @word_from_category.where(id: ids).order('random()')
-      @first_word = @words.first
-      @words = @words.map { |word| word.en }.uniq
+      get_random_words(words: @words_from_category)
 
     elsif params[:category] == "Moje słówka"
 
-      rand = rand(1..3)
-      ids = Word.verified.pluck(:id).shuffle[0..rand]
-      @words = current_user.words.where(id: ids).order('random()')
-      @first_word = @words.first
-      @words = @words.map { |word| word.en }.uniq
+      get_random_words(words: current_user.words)
 
       #check how many words user has
-      if current_user.words.count < 4
+      if current_user.words.count <= 4
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek' }
         end
       end
 
     else
-      rand = rand(1..3)
-      ids = Word.verified.pluck(:id).shuffle[0..rand]
-      @words = Word.where(id: ids).order('random()')
-      @first_word = @words.first
-      @words = @words.map { |word| word.en }.uniq
+
+      get_random_words(words: Word)
+
     end
     
 
     @categories = Category.all.order("name ASC")
 
-    #create stats of user if not exists earlier
-    @create_stat = Stat.where(:user_id => current_user.id).first_or_create if current_user
+    create_stat_for_user_if_not_exists
     @all_good_count = Stat.sum(:good_count)
     @all_bad_count = Stat.sum(:bad_count)
 
@@ -157,10 +116,6 @@ class WordsController < ApplicationController
   end
 
   def search
-    if params[:search]
-      @words_count = Word.search(params[:search]).count
-      @words = Word.search(params[:search]).paginate(:page => params[:page])
-    end
   end
 
   def upvote
@@ -214,10 +169,6 @@ class WordsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_word
-      @word = Word.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
@@ -231,17 +182,30 @@ class WordsController < ApplicationController
       end
     end
 
-    def is_enough_words_to_play_game?
-      Word.verified.size > 5 ? true : false
+    def enough_words?
+      Word.verified.size >= MIN_WORDS_FOR_GAME
     end
 
     def category_has_enough_words?
-      @word_from_category.count >= 5 ? true : false
+      @words_from_category.count >= MIN_WORDS_FOR_CATEGORY
     end
 
     def category_is_defined_and_exists?
 
       @category = Category.find_by_name(params[:category])
       params[:category] && @category ? true : false
+    end
+
+    def get_random_words(max_answers: 3, words:)
+      rand = rand(1..max_answers)
+      ids = words.pluck(:id).shuffle[0..rand]
+      #@words = @words_from_category.where(id: ids).order('random()')
+      @words = words.where(id: ids)
+      @first_word = @words.first
+      @words = @words.map { |word| word.en }.uniq
+    end
+
+    def create_stat_for_user_if_not_exists
+      Stat.where(:user_id => current_user.id).first_or_create if current_user
     end
 end

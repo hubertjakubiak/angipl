@@ -8,6 +8,7 @@ class Word < ActiveRecord::Base
   validates_uniqueness_of :en, :scope => :pl, :message => "Istnieje już takie tłumaczenie tego słówka."
   validates_uniqueness_of :pl, :scope => :en, :message => "Istnieje już takie tłumaczenie tego słówka."
   belongs_to :user
+  validates :user_id, :presence => true
   acts_as_votable
   before_validation :strip_whitespace
 
@@ -16,7 +17,7 @@ class Word < ActiveRecord::Base
   has_many :categories, through: :word_categories
 
   scope :verified , lambda { where(:verified => true)}
-  scope :notverified , lambda { where(:verified => false)}
+  scope :unverified , lambda { where(:verified => false)}
   scope :sorted , lambda { order('created_at DESC') }
   scope :my_words , -> (id) { where(:user_id => id, :verified => true) }
 
@@ -24,8 +25,8 @@ class Word < ActiveRecord::Base
 
   def self.search(search)
     if search
-      #self.where("lower(words.en) LIKE '#{search.downcase}' OR lower(words.pl)  = '#{search.downcase}' ")
-      self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search.downcase}%", "%#{search.downcase}%")
+      self.where("lower(words.en) LIKE '#{search.downcase}' OR lower(words.pl)  = '#{search.downcase}' ")
+      #self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search.downcase}%", "%#{search.downcase}%")
     end
   end
 

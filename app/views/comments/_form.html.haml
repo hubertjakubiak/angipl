@@ -1,6 +1,6 @@
 %h3 Dodaj nowy komentarz
 %p
-  = simple_form_for([@word, @comment], :html => { :role => "form" }) do |f|
+  = simple_form_for([word, comment], :html => { :role => "form" }) do |f|
     =f.input :content, :label => "Treść komentarza:"
     =f.submit 'Dodaj komentarz', {:class => 'btn btn-primary'}
 

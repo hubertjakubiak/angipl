@@ -11,7 +11,7 @@
       -if current_user.try(:admin?)
         %th Zarządzaj
   %tbody
-    - @words.each do |word|
+    - render_words.each do |word|
       %tr
         %td= link_to word.en, word
         %td= link_to word.pl, word
@@ -42,4 +42,4 @@
             = link_to 'Edytuj', edit_word_path(word) 
             |
             = link_to 'Usuń', word, method: :delete, data: { confirm: 'Are you sure?' }
-= will_paginate @words, renderer: BootstrapPagination::Rails
+= will_paginate render_words, renderer: BootstrapPagination::Rails
