@@ -18,6 +18,7 @@ class WordsController < ApplicationController
   MIN_WORDS_FOR_GAME = 5
   MIN_WORDS_FOR_CATEGORY = 5
   MIN_WORDS_FOR_MY_WORDS = 5
+  MIN_DIFF_TO_VERIFY_WORD = 3
 
   def my
     authorize! :my_words, word, :message => "Musisz się zalogować, aby mieć swoje słówka."
@@ -55,7 +56,7 @@ class WordsController < ApplicationController
     authorize! :delete, word, :message => "Nie możesz usunąć tego słówka."
     word.destroy
     respond_to do |format|
-      format.html { redirect_to words_url, notice: 'Słówka zostało usunięte' }
+      format.html { redirect_to :back, notice: 'Słówka zostało usunięte' }
       format.json { head :no_content }
     end
   end
@@ -128,7 +129,7 @@ class WordsController < ApplicationController
       @good_votes = word.get_upvotes.size
       @bad_votes = word.get_downvotes.size
 
-      if (@good_votes - @bad_votes) >=10
+      if (@good_votes - @bad_votes) >= MIN_DIFF_TO_VERIFY_WORD
         word.update(verified: true)
       end
 

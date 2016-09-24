@@ -3,6 +3,6 @@
     =f.input :en, label: 'Angielski', :autofocus => true
     =f.input :pl, label: 'Polski'
     / =f.input :level, label: 'Poziom trudności (0 - najłatwiejsze, 10 - najtrudniejsze)', collection: 0..10, prompt: "---", selected: @word[:level]
-    =f.association :categories, as: :check_boxes, label_method: :name, value_method: :id, label: 'Kategorie'
+    =f.association :categories, collection: Category.order('name ASC'), as: :check_boxes, label_method: :name, value_method: :id, label: 'Kategorie'
     %br/
     =f.submit 'Zapisz', {:class => 'btn btn-primary'}
