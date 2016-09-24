@@ -12,6 +12,7 @@ RSpec.feature "User plays game", type: :feature do
     click_button('Pokaż odpowiedzi')
     first('.word.btn-default').click
     #click_button("cat", visible: false);
+    page.has_css?('.word')
     expect(page).to have_css('.word.btn-success')
   end
 

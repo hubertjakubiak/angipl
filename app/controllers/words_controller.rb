@@ -6,6 +6,8 @@ class WordsController < ApplicationController
   expose(:word, attributes: :word_params)
   expose(:comment) { Comment.new }
   expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
+  expose(:category) { Category.find_by_name(params[:category]) }
+  expose(:category_words) {category.words.where(:verified => true)}
 
   MIN_WORDS_FOR_GAME = 5
   MIN_WORDS_FOR_CATEGORY = 5
@@ -60,15 +62,13 @@ class WordsController < ApplicationController
 
     if category_is_defined_and_exists?
 
-      @words_from_category = @category.words.where(:verified => true)
-
       unless category_has_enough_words?
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.' }
         end
       end
 
-      get_random_words(words: @words_from_category)
+      get_random_words(words: category_words)
 
     elsif params[:category] == "Moje słówka"
 
@@ -187,20 +187,18 @@ class WordsController < ApplicationController
     end
 
     def category_has_enough_words?
-      @words_from_category.count >= MIN_WORDS_FOR_CATEGORY
+      category_words.count >= MIN_WORDS_FOR_CATEGORY
     end
 
     def category_is_defined_and_exists?
-
-      @category = Category.find_by_name(params[:category])
-      params[:category] && @category ? true : false
+      params[:category] && category
     end
 
     def get_random_words(max_answers: 3, words:)
       rand = rand(1..max_answers)
       ids = words.pluck(:id).shuffle[0..rand]
-      #@words = @words_from_category.where(id: ids).order('random()')
-      @words = words.where(id: ids)
+      @words = words.where(id: ids).order('random()')
+      #@words = words.where(id: ids)
       @first_word = @words.first
       @words = @words.map { |word| word.en }.uniq
     end
