@@ -9,6 +9,7 @@ class SettingsController < ApplicationController
   def update
     if setting.update(setting_params)
       redirect_to settings_path
+      flash[:notice] = 'Ustawienia zostały zapisane.'
     else
       render :index
     end

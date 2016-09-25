@@ -16,6 +16,7 @@ RSpec.feature "User hides show anwsers buton", js: true, type: :feature do
     expect(page).to have_content("Ustawienia")
     find("input[id='setting_hide_show_answers_button']").click
     click_button('Zapisz')
+    expect(page).to have_content("Ustawienia zostały zapisane.")
     visit root_path
     expect(page).not_to have_content("Pokaż odpowiedzi")
 
@@ -23,6 +24,7 @@ RSpec.feature "User hides show anwsers buton", js: true, type: :feature do
     expect(page).to have_content("Ustawienia")
     find("input[id='setting_hide_show_answers_button']").click
     click_button('Zapisz') 
+    expect(page).to have_content("Ustawienia zostały zapisane.")
     visit root_path
     expect(page).to have_content("Pokaż odpowiedzi")
   end
