@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'settings/index'
+
   get '/rankings', to: 'rankings#index', as: 'rankings'
+  resources :settings
 
   mount RailsAdmin::Engine => '/hubert', as: 'rails_admin'
   devise_for :admins, :controllers => { registrations: 'admins_registrations'}

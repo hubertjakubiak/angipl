@@ -24,7 +24,9 @@
             = active_link_to 'Dodaj słówko', new_word_path
         %li{:class => "#{'active' if current_page?(search_words_path)}"}
           = active_link_to 'Szukaj', search_words_path
-  
+        - if user_signed_in?
+          %li{:class => "#{'active' if current_page?(settings_path)}"}
+            = active_link_to 'Ustawienia', settings_path
         - if user_signed_in?
           %li{:class => "#{'active' if current_page?(edit_user_registration_path)}"}
             = link_to('Edytuj profil', edit_user_registration_path)

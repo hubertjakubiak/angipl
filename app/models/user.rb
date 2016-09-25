@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :words
   has_many :comments
   has_one :stat
+  has_one :setting
   validates_uniqueness_of :name
   validates :name, presence: { message: "To pole nie może być puste." }
 

@@ -1,0 +1,5 @@
+%p
+  = simple_form_for(setting) do |f|
+    =f.input :hide_show_answers_button, label: 'Ukryj przycisk "Pokaż odpowiedzi"', :autofocus => true
+    %br/
+    =f.submit 'Zapisz', {:class => 'btn btn-primary'}

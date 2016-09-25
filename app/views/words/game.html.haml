@@ -67,13 +67,18 @@
               Ogółem
           %td= all_good_count
           %td= all_bad_count
-          %td= correctness(all_good_count, all_bad_count)          
-:javascript
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
-  
-      $( "#show_answers" ).click(function() {
-        $( ".answers" ).show();
-        $(this).remove();
-      });
-  });
+          %td= correctness(all_good_count, all_bad_count)         
+- if current_user && current_user.setting.hide_show_answers_button
+  :javascript
+    $(document).ready(function(){ 
+        $("#show_answers").hide();
+        $(".answers").show();
+    });
+- else
+  :javascript
+    $(document).ready(function(){
+        $( "#show_answers" ).click(function() {
+          $( ".answers" ).show();
+          $(this).remove();
+        });
+    });

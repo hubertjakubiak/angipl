@@ -99,6 +99,7 @@ class WordsController < ApplicationController
     end
 
     create_stat_for_user_if_not_exists
+    create_setting_for_user_if_not_exists
 
   end
 
@@ -212,5 +213,9 @@ class WordsController < ApplicationController
 
     def create_stat_for_user_if_not_exists
       Stat.where(:user_id => current_user.id).first_or_create if current_user
+    end
+
+    def create_setting_for_user_if_not_exists
+      Setting.where(:user_id => current_user.id).first_or_create if current_user
     end
 end
