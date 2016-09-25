@@ -9,7 +9,7 @@ RSpec.feature "User create word", type: :feature do
 
     sign_in
     expect(page).to have_content 'Wyloguj się'
-    visit game_words_path
+    visit root_path
     click_link('Dodaj słówko')
   end
 

@@ -12,7 +12,7 @@ RSpec.feature "User access my words", type: :feature do
   end
 
   scenario 'when signed in' do
-    visit game_words_path
+    visit root_path
     click_link('Moje słówka')
     expect(page).to have_css("h1", text: "Moje słówka")
   end

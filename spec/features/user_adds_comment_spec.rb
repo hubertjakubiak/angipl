@@ -8,7 +8,7 @@ RSpec.feature "User adds comment", type: :feature do
   background do
     sign_in
     expect(page).to have_content 'Wyloguj się'
-    visit game_words_path
+    visit root_path
   end
 
 

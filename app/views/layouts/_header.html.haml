@@ -11,8 +11,8 @@
       %ul.nav.navbar-nav
         %li{:class => "#{'active' if current_page?(words_path)}"}
           = active_link_to 'Lista słówek', words_path
-        %li{:class => "#{'active' if current_page?(rankings_path)}"}
-          = active_link_to 'Ranking', rankings_path
+        %li{:class => "#{'active' if current_page?(ranking_path)}"}
+          = active_link_to 'Ranking', ranking_path
         - if can? :my_words, Word
           %li{:class => "#{'active' if current_page?(my_words_path)}"}
             = active_link_to 'Moje słówka', my_words_path

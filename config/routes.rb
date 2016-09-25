@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'game/check'
+
   get 'settings/index'
 
-  get '/rankings', to: 'rankings#index', as: 'rankings'
+  get '/ranking', to: 'ranking#index', as: 'ranking'
   resources :settings
 
   mount RailsAdmin::Engine => '/hubert', as: 'rails_admin'
@@ -27,7 +29,7 @@ Rails.application.routes.draw do
   #            :controllers => { registrations: 'registrations' }
 
   # set root
-  root 'words#game'
+  root 'game#index'
 
   # resources
 
@@ -38,8 +40,6 @@ Rails.application.routes.draw do
     collection do
       get 'search'
       get 'my'
-      get 'check'
-      get 'game'
       get 'to-verify'
       post 'import'
     end
