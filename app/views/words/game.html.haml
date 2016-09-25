@@ -67,5 +67,13 @@
               Ogółem
           %td= all_good_count
           %td= all_bad_count
-          %td= correctness(all_good_count, all_bad_count)
-          
+          %td= correctness(all_good_count, all_bad_count)          
+:javascript
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  
+      $( "#show_answers" ).click(function() {
+        $( ".answers" ).show();
+        $(this).remove();
+      });
+  });
