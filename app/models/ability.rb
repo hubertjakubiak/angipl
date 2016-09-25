@@ -9,6 +9,7 @@ class Ability
       can :create, Comment
       can :my_words, Word
       can :to_verify, Word
+      can :index, Setting
 
       can [ :edit, :update, :delete ], Word do |word|
         word.user_id == user.id
