@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature "User access my words", type: :feature do
+RSpec.feature "User goes to my words", type: :feature do
 
   let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
   let!(:user) {FactoryGirl.create(:user)}

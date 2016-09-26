@@ -1,4 +1,4 @@
-class GameController < ApplicationController
+class GamesController < ApplicationController
 
   expose(:verified_words) { Word.verified}
   expose(:game_words) {Word.verified}

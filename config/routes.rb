@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'game/check'
+  get 'games/check'
 
   get 'settings/index'
 
-  get '/ranking', to: 'ranking#index', as: 'ranking'
+  get '/rankings/users', to: 'rankings#users'
   resources :settings
 
   mount RailsAdmin::Engine => '/hubert', as: 'rails_admin'
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   #            :controllers => { registrations: 'registrations' }
 
   # set root
-  root 'game#index'
+  root 'games#index'
 
   # resources
 

@@ -1,0 +1,16 @@
+- title "Ranking"
+%h1 Ranking
+- unless users.blank?
+  %table.table
+    %thead
+      %tr
+        %th Pozycja
+        %th Użytkownik
+        %th Punkty
+        %th Dobre odpowiedzi
+        %th Złe odpowiedzi
+        %th Poprawność
+    %tbody
+      = render partial: 'user', collection: users
+- else
+  %p Brak danych.
