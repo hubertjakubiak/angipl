@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'czasy', to: 'games#index'
+  get 'czat', to: 'games#index'
+
   get 'games/check'
 
   get 'settings/index'
