@@ -42,3 +42,5 @@
         - if admin_signed_in?
           %li
             = link_to('Wyloguj się', destroy_admin_session_path, :method => :delete)
+        %li{:class => "#{'active' if current_page?(pages_contact_path)}"}
+          = active_link_to 'Kontakt', pages_contact_path

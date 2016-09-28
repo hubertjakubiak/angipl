@@ -66,6 +66,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem "better_errors"
   gem 'capybara'
+  gem "chromedriver-helper"
 end
 
 group :production do
