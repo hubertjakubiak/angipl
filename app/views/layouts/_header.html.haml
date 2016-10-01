@@ -9,24 +9,32 @@
       .navbar-brand= link_to "Angi.pl", root_path
     #navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{:class => "#{'active' if current_page?(words_path)}"}
-          = active_link_to 'Lista słówek', words_path
-        %li{:class => "#{'active' if current_page?(rankings_users_path)}"}
-          = active_link_to 'Ranking', rankings_users_path
-        - if can? :my_words, Word
-          %li{:class => "#{'active' if current_page?(my_words_path)}"}
-            = active_link_to 'Moje słówka', my_words_path
-        - if can? :to_verify, Word
-          %li{:class => "#{'active' if current_page?(to_verify_words_path)}"}
-            = active_link_to 'Do weryfikacji', to_verify_words_path
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Słówka
+            %span.caret
+          %ul.dropdown-menu
+            %li{:class => "#{'active' if current_page?(words_path)}"}
+              = active_link_to 'Wszystkie', words_path
+            - if can? :my_words, Word
+              %li{:class => "#{'active' if current_page?(my_words_path)}"}
+                = active_link_to 'Moje słówka', my_words_path
+            - if can? :to_verify, Word
+              %li{:class => "#{'active' if current_page?(to_verify_words_path)}"}
+                = active_link_to 'Do weryfikacji', to_verify_words_path
+            %li{:class => "#{'active' if current_page?(search_words_path)}"}
+              = active_link_to 'Szukaj', search_words_path
         - if can? :create, Word
           %li{:class => "#{'active' if current_page?(new_word_path)}"}
             = active_link_to 'Dodaj słówko', new_word_path
-        %li{:class => "#{'active' if current_page?(search_words_path)}"}
-          = active_link_to 'Szukaj', search_words_path
+        %li{:class => "#{'active' if current_page?(rankings_users_path)}"}
+          = active_link_to 'Ranking', rankings_users_path
+        
         - if user_signed_in?
           %li{:class => "#{'active' if current_page?(settings_path)}"}
             = active_link_to 'Ustawienia', settings_path
+        %li{:class => "#{'active' if current_page?(pages_contact_path)}"}
+          = active_link_to 'Kontakt', pages_contact_path
         - if user_signed_in?
           %li{:class => "#{'active' if current_page?(edit_user_registration_path)}"}
             = link_to('Edytuj profil', edit_user_registration_path)
@@ -42,5 +50,4 @@
         - if admin_signed_in?
           %li
             = link_to('Wyloguj się', destroy_admin_session_path, :method => :delete)
-        %li{:class => "#{'active' if current_page?(pages_contact_path)}"}
-          = active_link_to 'Kontakt', pages_contact_path
+        
