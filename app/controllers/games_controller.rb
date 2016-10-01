@@ -1,14 +1,7 @@
 class GamesController < ApplicationController
 
   expose(:verified_words) { Word.verified}
-  expose(:game_words) {Word.verified}
   expose(:categories) { Category.all.order("name ASC") }
-  expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
-  expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
-  expose(:unverified_words) { Word.unverified.recent.paginate(:page => params[:page]) }
-  expose(:word, attributes: :word_params)
-  expose(:comment) { Comment.new }
-  expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
   expose(:category) { Category.find_by_name(params[:category]) }
   expose(:category_words) {category.words.where(:verified => true) if category } 
   expose(:all_good_count) { Stat.sum(:good_count) }
@@ -52,7 +45,7 @@ class GamesController < ApplicationController
         end
     else
 
-      get_random_words(words: game_words)
+      get_random_words(words: verified_words)
 
     end
 

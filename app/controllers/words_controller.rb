@@ -1,16 +1,11 @@
 class WordsController < ApplicationController
 
+  expose(:word, attributes: :word_params)
   expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
   expose(:unverified_words) { Word.unverified.recent.paginate(:page => params[:page]) }
-  expose(:word, attributes: :word_params)
   expose(:comment) { Comment.new }
   expose(:search_words) { Word.search(params[:search]).paginate(:page => params[:page])}
-  expose(:category) { Category.find_by_name(params[:category]) }
-  expose(:category_words) {category.words.where(:verified => true) if category } 
-  expose(:all_good_count) { Stat.sum(:good_count) }
-  expose(:all_bad_count) { Stat.sum(:bad_count) }
-  expose(:my_stats) { Stat.find_by_user_id(current_user.id) if current_user }
 
   MIN_DIFF_TO_VERIFY_WORD = 3
 
