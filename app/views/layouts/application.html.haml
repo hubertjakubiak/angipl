@@ -8,10 +8,10 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    = render 'layouts/ga'
+    = render 'shared/ga'
   %body
-    = render 'layouts/header'
+    = render 'shared/header'
     .container
-      = render 'layouts/alerts'
+      = render 'shared/alerts'
       = yield
-    = render 'layouts/footer'
+    = render 'shared/footer'
