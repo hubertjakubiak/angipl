@@ -33,8 +33,8 @@
         - if user_signed_in?
           %li{:class => "#{'active' if current_page?(settings_path)}"}
             = active_link_to 'Ustawienia', settings_path
-        %li{:class => "#{'active' if current_page?(pages_contact_path)}"}
-          = active_link_to 'Kontakt', pages_contact_path
+        %li{:class => "#{'active' if current_page?(contact_path)}"}
+          = active_link_to 'Kontakt', contact_path
         - if user_signed_in?
           %li{:class => "#{'active' if current_page?(edit_user_registration_path)}"}
             = link_to('Edytuj profil', edit_user_registration_path)
