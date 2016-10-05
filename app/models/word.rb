@@ -22,6 +22,8 @@ class Word < ActiveRecord::Base
   scope :recent , lambda { order('created_at DESC') }
   scope :my_words , -> (id) { where(:user_id => id, :verified => true) }
 
+  # after_initialize :set_defaults
+
   self.per_page = 20
 
   def self.search(search)
@@ -41,4 +43,8 @@ class Word < ActiveRecord::Base
       Word.create row.to_hash
     end
   end
+
+  # def set_defaults
+  #   self.user.name   = "Umberto"
+  # end
 end

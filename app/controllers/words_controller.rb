@@ -95,8 +95,8 @@ class WordsController < ApplicationController
   end
 
   def import
-    Word.import(params[:file])
-    flash[:notice] = "Dane zostały zaimportowane."
+    Word.delay.import(params[:file])
+    flash[:notice] = "Dane są importowane..."
     redirect_to root_url
   end
 

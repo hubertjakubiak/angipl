@@ -57,6 +57,7 @@ gem 'decent_exposure', '~> 2.3', '>= 2.3.3'
 gem 'decent_decoration', '~> 0.0.6'
 gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'react-rails'
+gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
