@@ -95,9 +95,18 @@ class WordsController < ApplicationController
   end
 
   def import
-    Word.import(params[:upload][:file])
-    flash[:notice] = "Dane są importowane..."
-    redirect_to root_url
+
+  end
+
+  def import
+    if params[:upload]
+      Word.import(params[:upload][:file])
+      flash[:notice] = "Dane są w tej chwili importowane."
+      redirect_to root_url
+    else
+      flash[:alert] = "Nie wgrałeś żadnego pliku."
+      redirect_to :back
+    end
   end
 
   private

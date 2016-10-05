@@ -11,3 +11,5 @@
       = simple_form_for :upload, url: import_words_path do |f|
         = f.input :file, as: :file, label: "Plik"
         = f.button :submit, "Importuj CSV"
+      %p
+        Plik .csv powinien zawierać kolumny en, pl, verified, user_id, category_ids
