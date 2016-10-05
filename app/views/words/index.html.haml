@@ -8,9 +8,3 @@
 %br/
 %br/
 
-- if current_user.try(:admin?)
-  %h4 Importuj słówka
-  = form_tag import_words_path, multipart: true do
-    = file_field_tag :file
-    = submit_tag "Importuj CSV"
-

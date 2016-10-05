@@ -5,3 +5,9 @@
     = render 'form'
     %p.well.well-sm 
       Przechodź między polami formularza klawiszem Tab i wciśnij Enter, aby zapisać słówko.
+
+    - if current_user.try(:admin?)
+      %h4 Importuj słówka
+      = simple_form_for :upload, url: import_words_path do |f|
+        = f.input :file, as: :file, label: "Plik"
+        = f.button :submit, "Importuj CSV"
