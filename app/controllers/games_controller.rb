@@ -58,6 +58,10 @@ class GamesController < ApplicationController
 
     @en = params[:en]
     @pl = params[:pl]
+    if params[:word][:en] && params[:word][:pl]
+      @en = params[:word][:en]
+      @pl = params[:word][:pl]
+    end
     @time = params[:time]
 
     @correct_answer = Word.find_by_pl(@pl).en
@@ -66,6 +70,7 @@ class GamesController < ApplicationController
     @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
 
     respond_to do |format|
+      format.html
       format.js
     end
   end

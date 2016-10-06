@@ -44,6 +44,12 @@ class Word < ActiveRecord::Base
     end
   end
 
+  def self.is_answer_correct?(en:, pl:)
+    en = en.strip.downcase
+    pl = pl.strip.downcase
+    Word.where(en: pl, pl: pl).size >= 1 ? true : false
+  end
+
   # def set_defaults
   #   self.user.name   = "Umberto"
   # end

@@ -20,6 +20,8 @@ $('.word.btn-default').addClass('disabled');
   my_good_count.text(num+1);
   my_good_count.css("background-color", "#5cb85c").fadeIn(1000);
   my_good_count.css("color", "#fff").fadeIn(1000);
+
+  $("#answer_is").text("Dobra odpowiedź");
 <% else %>
   $('[data-word="<%=j @en %>"]').addClass('btn-danger');
   $('[data-word="<%=j @correct_answer %>"]').addClass('btn-success');
@@ -33,4 +35,6 @@ $('.word.btn-default').addClass('disabled');
   my_bad_count.text(num+1);
   my_bad_count.css("background-color", "#d9534f").fadeIn(1000);
   my_bad_count.css("color", "#fff").fadeIn(1000);
+
+  $("#answer_is").text("Zła odpowiedź");
 <% end %>
