@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   expose(:categories) { Category.all.order("name ASC") }
   expose(:category) { Category.find_by_name(params[:category]) }
   expose(:category_words) {category.words.where(:verified => true) if category } 
+  expose(:my_words) { current_user.words}
   expose(:all_good_count) { Stat.sum(:good_count) }
   expose(:all_bad_count) { Stat.sum(:bad_count) }
   expose(:my_stats) { Stat.find_by_user_id(current_user.id) if current_user }
@@ -58,7 +59,7 @@ class GamesController < ApplicationController
 
     @en = params[:en]
     @pl = params[:pl]
-    if params[:word][:en] && params[:word][:pl]
+    if params[:word]
       @en = params[:word][:en]
       @pl = params[:word][:pl]
     end
@@ -98,7 +99,7 @@ class GamesController < ApplicationController
       ids = words.pluck(:id).shuffle[0..rand]
       @words = words.where(id: ids).order('random()')
       #@words = words.where(id: ids)
-      @first_word = @words.first
+      @question_word = @words.first
       @words = @words.map { |word| word.en }.uniq
     end
 
