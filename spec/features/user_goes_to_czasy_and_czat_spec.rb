@@ -14,17 +14,17 @@ RSpec.feature "User goes to czasy and czat", type: :feature do
 
   scenario 'when signed in' do
     visit '/czasy'
-    expect(page).to have_content 'Wybierz prawidłowe tłumaczenie.'
+    expect(page).to have_content 'Pokaż odpowiedzi'
     visit '/czat'
-    expect(page).to have_content 'Wybierz prawidłowe tłumaczenie.'
+    expect(page).to have_content 'Pokaż odpowiedzi'
   end
 
   scenario 'when signed out' do
     logout
     visit '/czasy'
-    expect(page).to have_content 'Wybierz prawidłowe tłumaczenie.'
+    expect(page).to have_content 'Pokaż odpowiedzi'
     visit '/czat'
-    expect(page).to have_content 'Wybierz prawidłowe tłumaczenie.'
+    expect(page).to have_content 'Pokaż odpowiedzi'
 
   end
 

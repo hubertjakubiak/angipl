@@ -68,7 +68,7 @@ class GamesController < ApplicationController
     @correct_answer = Word.find_by_pl(@pl).en
     @correct_answer_id = Word.find_by_pl(@pl).id
 
-    @result = Word.where(["en = ? and pl = ?", "#{@en}", "#{@pl}"]).size.to_s
+    @result = Word.where(["lower(en) = ? and lower(pl) = ?", "#{@en.downcase}", "#{@pl.downcase}"]).size.to_s
 
     respond_to do |format|
       format.html
