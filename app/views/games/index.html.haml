@@ -69,10 +69,10 @@
     %h3 Opcje
     %p Jak chcesz udzielać odpowiedzi?
     .form-group
-      %select#select-category.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
-        %option{:value => root_path, :selected => params[:typing] == ""} 
+      %select#select-game-option.form-control{:onchange => "this.options[this.selectedIndex].value  (window.location = this.options[this.selectedIndex].value);"}
+        %option{:value => root_path, :selected => params[:typing] == ""}
           Chcę wybierać
-        %option{:value => root_path(:typing => "true"), :selected => params[:typing] == "true"} 
+        %option{:value => root_path(:typing => "true"), :selected => params[:typing] == "true"}
           Chcę wpisywać
     = link_to "Sprawdź dodatkowe ustawienia", settings_path
   .col-md-3
