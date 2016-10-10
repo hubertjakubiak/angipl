@@ -50,9 +50,6 @@ class GamesController < ApplicationController
 
     end
 
-    create_stat_for_user_if_not_exists
-    create_setting_for_user_if_not_exists
-
   end
 
   def check
@@ -78,7 +75,7 @@ class GamesController < ApplicationController
 
   private
 
-  def enough_words?
+    def enough_words?
       verified_words.size >= MIN_WORDS_FOR_GAME
     end
 
@@ -101,13 +98,5 @@ class GamesController < ApplicationController
       #@words = words.where(id: ids)
       @question_word = @words.first
       @words = @words.map { |word| word.en }.uniq
-    end
-
-    def create_stat_for_user_if_not_exists
-      Stat.where(:user_id => current_user.id).first_or_create if current_user
-    end
-
-    def create_setting_for_user_if_not_exists
-      Setting.where(:user_id => current_user.id).first_or_create if current_user
     end
 end
