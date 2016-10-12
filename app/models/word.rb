@@ -26,13 +26,6 @@ class Word < ActiveRecord::Base
 
   self.per_page = 20
 
-  def self.search(search)
-    if search
-      self.where("lower(words.en) LIKE '#{search.downcase}' OR lower(words.pl)  = '#{search.downcase}' ")
-      #self.where("words.en LIKE ? OR words.pl LIKE ?" , "%#{search.downcase}%", "%#{search.downcase}%")
-    end
-  end
-
   def strip_whitespace
     self.en = self.en.strip unless self.en.nil?
     self.pl = self.pl.strip unless self.pl.nil?
