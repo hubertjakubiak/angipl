@@ -5,7 +5,7 @@ class WordsController < ApplicationController
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
   expose(:unverified_words) { Word.unverified.recent.paginate(:page => params[:page]) }
   expose(:comment) { Comment.new }
-  expose(:search_words) { SearchWord.search(params[:search]).paginate(:page => params[:page])}
+  expose(:search_words) { SearchWord.scope(params[:search]).paginate(:page => params[:page])}
 
   MIN_DIFF_TO_VERIFY_WORD = 3
 
