@@ -2,12 +2,20 @@ class WordsController < ApplicationController
 
   expose(:word, attributes: :word_params)
   expose(:words) { Word.includes(:user, :categories).sorted.paginate(:page => params[:page]).all }
+  expose(:words_all) { Word.all }
   expose(:my_words) { current_user.words.sorted.paginate(:page => params[:page]) }
   expose(:unverified_words) { Word.unverified.recent.paginate(:page => params[:page]) }
   expose(:comment) { Comment.new }
   expose(:search_words) { SearchWord.scope(params[:search]).paginate(:page => params[:page])}
 
   MIN_DIFF_TO_VERIFY_WORD = 3
+
+  def index
+    respond_to do |format|
+      format.html
+      format.csv { send_data words_all.to_csv }
+    end
+  end
 
   def my
     authorize! :my_words, word, :message => "Musisz się zalogować, aby mieć swoje słówka."

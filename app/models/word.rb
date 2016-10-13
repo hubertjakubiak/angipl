@@ -42,6 +42,15 @@ class Word < ActiveRecord::Base
     pl = pl.strip.downcase
     Word.where(en: pl, pl: pl).size >= 1 ? true : false
   end
+  
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |product|
+        csv << product.attributes.values_at(*column_names)
+      end
+    end
+  end
 
   # def set_defaults
   #   self.user.name   = "Umberto"
