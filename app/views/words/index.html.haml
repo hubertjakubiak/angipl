@@ -10,7 +10,6 @@
 
 - if current_user.try(:admin?)
   %p
-    Pobierz:
-    = link_to "CSV", words_path(format: "csv")
+    = link_to "Pobierz CSV", words_path(format: "csv"), class: 'btn btn-default'
 
 

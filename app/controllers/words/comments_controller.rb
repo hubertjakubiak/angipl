@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Words::CommentsController < ApplicationController
   expose(:word)
   expose(:comment) { word.comments.build(comment_params) }
   def create

@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   resources :words do
 
-    resources :comments
+    resources :comments, except: [:index], controller: "words/comments"
 
     collection do
       get 'search'

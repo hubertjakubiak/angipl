@@ -39,9 +39,9 @@
     - if word.comments.any? && !word.comments[0].new_record?
       - word.comments.each do |comment|
         - unless comment.new_record?
-          = render comment
+          = render 'words/comments/comment', comment: comment
     - if can? :create, Comment
-      = render 'comments/form'
+      = render 'words/comments/form'
     - else
       = link_to "Zaloguj się, aby dodać komentarz", new_user_session_path
   - if can? :edit, word
