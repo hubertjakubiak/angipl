@@ -5,11 +5,13 @@
       .type-game
         = simple_form_for :word, url: games_check_path, method: :get, remote: true do |f|
           = f.input :pl, :as => :hidden, input_html: { value: @question_word.pl }
-          %h1#correct_answer_is= @question_word.pl
+          .well
+            %h1#correct_answer_is= @question_word.pl
           = f.input :en,  input_html: { autofocus: true, autocomplete: 'off' }, label: false
           = f.button :submit, "Sprawdź", class:  "btn-lg btn-primary"
     - else
-      %h1= @question_word.pl
+      .well
+        %h1= @question_word.pl
       / %p
       /   = link_to @question_word.pl, word_path(@question_word.id), {:class=>"word btn btn-primary btn-lg", :target => "_blank@"}
       %p
