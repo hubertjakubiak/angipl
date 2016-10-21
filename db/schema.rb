@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20161005172325) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.string   "name"
   end
 
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -46,8 +49,8 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.text     "content"
   end
 
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-  add_index "comments", ["word_id"], name: "index_comments_on_word_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["word_id"], name: "index_comments_on_word_id", using: :btree
 
   create_table "commontator_comments", force: :cascade do |t|
     t.string   "creator_type"
@@ -63,10 +66,10 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
-  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
-  add_index "commontator_comments", ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id"
-  add_index "commontator_comments", ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
+  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down", using: :btree
+  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up", using: :btree
+  add_index "commontator_comments", ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id", using: :btree
+  add_index "commontator_comments", ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at", using: :btree
 
   create_table "commontator_subscriptions", force: :cascade do |t|
     t.string   "subscriber_type", null: false
@@ -76,8 +79,8 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_subscriptions", ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true
-  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  add_index "commontator_subscriptions", ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true, using: :btree
+  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id", using: :btree
 
   create_table "commontator_threads", force: :cascade do |t|
     t.string   "commontable_type"
@@ -89,7 +92,7 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -105,7 +108,7 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.boolean  "hide_show_answers_button", default: false
@@ -114,7 +117,7 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at",                               null: false
   end
 
-  add_index "settings", ["user_id"], name: "index_settings_on_user_id"
+  add_index "settings", ["user_id"], name: "index_settings_on_user_id", using: :btree
 
   create_table "stats", force: :cascade do |t|
     t.integer  "good_count", default: 0
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.integer  "points",     default: 0
   end
 
-  add_index "stats", ["user_id"], name: "index_stats_on_user_id"
+  add_index "stats", ["user_id"], name: "index_stats_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -148,8 +151,8 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -163,8 +166,8 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   create_table "word_categories", force: :cascade do |t|
     t.integer  "word_id"
@@ -173,7 +176,7 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.integer  "category_id"
   end
 
-  add_index "word_categories", ["word_id"], name: "index_word_categories_on_word_id"
+  add_index "word_categories", ["word_id"], name: "index_word_categories_on_word_id", using: :btree
 
   create_table "words", force: :cascade do |t|
     t.string   "en"
@@ -186,6 +189,10 @@ ActiveRecord::Schema.define(version: 20161005172325) do
     t.boolean  "verified",   default: false
   end
 
-  add_index "words", ["user_id"], name: "index_words_on_user_id"
+  add_index "words", ["user_id"], name: "index_words_on_user_id", using: :btree
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "words"
+  add_foreign_key "settings", "users"
+  add_foreign_key "word_categories", "words"
 end
