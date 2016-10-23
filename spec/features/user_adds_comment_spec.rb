@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.feature "User adds comment", type: :feature do
-
+  
   let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
   let!(:user) {FactoryGirl.create(:user)}
 
