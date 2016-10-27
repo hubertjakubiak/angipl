@@ -70,6 +70,7 @@ group :development, :test do
   gem "better_errors"
   gem 'capybara'
   gem "chromedriver-helper"
+  gem 'pry'
 end
 
 group :production do
