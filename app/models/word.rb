@@ -52,6 +52,10 @@ class Word < ActiveRecord::Base
     end
   end
 
+  def self.export
+
+  end
+
   # def set_defaults
   #   self.user.name   = "Umberto"
   # end
