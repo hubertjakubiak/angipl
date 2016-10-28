@@ -50,7 +50,7 @@
         - if admin_signed_in?
           %li
             = link_to link_to I18n.t('nav.destroy_admin_session'), destroy_admin_session_path, :method => :delete 
-      %ul.nav.navbar-nav
+      %ul.nav.navbar-nav.pull-right
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             = I18n.t('nav.choose_language')

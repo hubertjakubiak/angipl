@@ -16,10 +16,10 @@ class Word < ActiveRecord::Base
   has_many :comments
   has_many :categories, through: :word_categories
 
-  scope :verified , lambda { where(:verified => true)}
-  scope :unverified , lambda { where(:verified => false)}
-  scope :sorted , lambda { order('created_at DESC') }
-  scope :recent , lambda { order('created_at DESC') }
+  scope :verified , -> { where(:verified => true)}
+  scope :unverified , -> { where(:verified => false)}
+  scope :sorted , -> { order('created_at DESC') }
+  scope :recent , -> { order('created_at DESC') }
   scope :my_words , -> (id) { where(:user_id => id, :verified => true) }
 
   # after_initialize :set_defaults
