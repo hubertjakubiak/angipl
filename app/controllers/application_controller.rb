@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    { locale: I18n.locale }
+    I18n.locale != :pl ? {locale: I18n.locale} : {}
   end
 
   rescue_from CanCan::AccessDenied do |exception|
