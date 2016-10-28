@@ -16,3 +16,7 @@ en:
     destroy_user_session: 'Log out'
     new_user_session: 'Sign in'
     destroy_admin_session: 'Log out as admin'
+    choose_language: "Choose language"
+  languages:
+    polish: "Polski"
+    english: "English"

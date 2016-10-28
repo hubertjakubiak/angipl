@@ -28,3 +28,7 @@ pl:
     destroy_user_session: 'Wyloguj się'
     new_user_session: 'Logowanie'
     destroy_admin_session: 'Wyloguj admina'
+    choose_language: "Wybierz język"
+  languages:
+    polish: "Polski"
+    english: "English"

@@ -14,7 +14,6 @@ class GamesController < ApplicationController
   MIN_WORDS_FOR_MY_WORDS = 5
 
   def index
-
     unless enough_words?
       flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
       redirect_to words_path
