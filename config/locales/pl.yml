@@ -14,7 +14,8 @@ pl:
             categories:
               blank: 'Musisz wybrać kategorię.'
   nav:
-    all_words: 'Wszystkie słówka'
+    words: 'Słówka'
+    all_words: 'Wszystkie'
     my_words: 'Moje słówka'
     to_verify: 'Do weryfikacji'
     search: 'Szukaj'
@@ -25,5 +26,5 @@ pl:
     edit_profile: 'Edytuj profil'
     new_user_registration: 'Rejestracja'
     destroy_user_session: 'Wyloguj się'
-    new_user_session_path: 'Logowanie'
+    new_user_session: 'Logowanie'
     destroy_admin_session: 'Wyloguj admina'

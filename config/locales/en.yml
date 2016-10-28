@@ -1,2 +1,18 @@
 en:
   hello: "Hello world"
+
+  nav:
+    words: 'Words'
+    all_words: 'All'
+    my_words: 'My words'
+    to_verify: 'To verify'
+    search: 'Search'
+    add_new_word: 'Add new word'
+    ranking: 'Ranking'
+    settings: 'Settings'
+    contact: 'Contact'
+    edit_profile: 'Edit profile'
+    new_user_registration: 'Sign up'
+    destroy_user_session: 'Log out'
+    new_user_session: 'Sign in'
+    destroy_admin_session: 'Log out as admin'

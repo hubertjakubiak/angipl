@@ -11,7 +11,7 @@
       %ul.nav.navbar-nav
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            Słówka
+            = I18n.t('nav.words')
             %span.caret
           %ul.dropdown-menu
             %li{:class => "#{active?(words_path)}"}
@@ -40,13 +40,13 @@
             = link_to(I18n.t('nav.edit_profile'), edit_user_registration_path)
         - else
           %li{:class => "#{active?(new_user_registration_path)}"}
-            = link_to link_to I18n.t('nav.new_user_registration'), new_user_registration_path
+            = link_to I18n.t('nav.new_user_registration'), new_user_registration_path
         - if user_signed_in?
           %li
             = link_to I18n.t('nav.destroy_user_session'), destroy_user_session_path, :method => :delete
         - else
           %li{:class => "#{active?(new_user_session_path)}"}
-            = link_to link_to I18n.t('nav.new_user_session'), new_user_session_path
+            = link_to I18n.t('nav.new_user_session'), new_user_session_path
         - if admin_signed_in?
           %li
             = link_to link_to I18n.t('nav.destroy_admin_session'), destroy_admin_session_path, :method => :delete 
