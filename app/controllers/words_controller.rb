@@ -62,9 +62,7 @@ class WordsController < ApplicationController
     if current_user
       word.upvote_by current_user
 
-      #get votes
-      @good_votes = word.get_upvotes.size
-      @bad_votes = word.get_downvotes.size
+      get_votes_for_word
 
       if (@good_votes - @bad_votes) >= MIN_DIFF_TO_VERIFY_WORD
         word.update(verified: true)
@@ -74,9 +72,8 @@ class WordsController < ApplicationController
         word.update(verified: true)
       end
       
-      respond_to do |format|
-        format.js
-      end
+      respond_to :js
+
     else
       must_login_to_vote
     end
@@ -86,16 +83,14 @@ class WordsController < ApplicationController
     if current_user
       word.downvote_by current_user
 
-      @good_votes = word.get_upvotes.size
-      @bad_votes = word.get_downvotes.size
+      get_votes_for_word
 
       if current_user.admin?
         word.update(verified: false)
       end
       
-      respond_to do |format|
-        format.js 
-      end
+      respond_to :js
+
     else
       must_login_to_vote
     end
@@ -125,5 +120,10 @@ class WordsController < ApplicationController
         flash[:error] = 'Musisz się zalogować, aby oceniać tłumaczenia.'
         format.js {render :js => "window.location.reload();"}
       end
+    end
+
+    def get_votes_for_word
+      @good_votes = word.get_upvotes.size
+      @bad_votes = word.get_downvotes.size
     end
 end
