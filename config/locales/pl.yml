@@ -13,3 +13,17 @@ pl:
 
             categories:
               blank: 'Musisz wybrać kategorię.'
+  nav:
+    all_words: 'Wszystkie słówka'
+    my_words: 'Moje słówka'
+    to_verify: 'Do weryfikacji'
+    search: 'Szukaj'
+    add_new_word: 'Dodaj słówko'
+    ranking: 'Ranking'
+    settings: 'Ustawienia'
+    contact: 'Kontakt'
+    edit_profile: 'Edytuj profil'
+    new_user_registration: 'Rejestracja'
+    destroy_user_session: 'Wyloguj się'
+    new_user_session_path: 'Logowanie'
+    destroy_admin_session: 'Wyloguj admina'

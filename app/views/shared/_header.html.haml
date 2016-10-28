@@ -15,39 +15,39 @@
             %span.caret
           %ul.dropdown-menu
             %li{:class => "#{active?(words_path)}"}
-              = link_to 'Wszystkie', words_path
+              = link_to I18n.t('nav.all_words'), words_path
             - if can? :my_words, Word
               %li{:class => "#{active?(my_words_path)}"}
-                = link_to 'Moje słówka', my_words_path
+                = link_to I18n.t('nav.my_words'), my_words_path
             - if can? :to_verify, Word
               %li{:class => "#{active?(to_verify_words_path)}"}
-                = link_to 'Do weryfikacji', to_verify_words_path
+                = link_to I18n.t('nav.to_verify'), to_verify_words_path
             %li{:class => "#{active?(search_words_path)}"}
-              = link_to 'Szukaj', search_words_path
+              = link_to I18n.t('nav.search'), search_words_path
         - if can? :create, Word
           %li{:class => "##{active?(new_word_path)}"}
-            = link_to 'Dodaj słówko', new_word_path
+            = link_to I18n.t('nav.add_new_word'), new_word_path
         %li{:class => "#{active?(rankings_users_path)}"}
-          = link_to 'Ranking', rankings_users_path
+          = link_to I18n.t('nav.ranking'), rankings_users_path
         
         - if user_signed_in?
           %li{:class => "#{active?(settings_path)}"}
-            = link_to 'Ustawienia', settings_path
+            = link_to I18n.t('nav.settings'), settings_path
         %li{:class => "#{active?(contact_path)}"}
-          = link_to 'Kontakt', contact_path
+          = link_to I18n.t('nav.contact'), contact_path
         - if user_signed_in?
           %li{:class => "#{active?(edit_user_registration_path)}"}
-            = link_to('Edytuj profil', edit_user_registration_path)
+            = link_to(I18n.t('nav.edit_profile'), edit_user_registration_path)
         - else
           %li{:class => "#{active?(new_user_registration_path)}"}
-            = link_to('Rejestracja', new_user_registration_path)
+            = link_to link_to I18n.t('nav.new_user_registration'), new_user_registration_path
         - if user_signed_in?
           %li
-            = link_to('Wyloguj się', destroy_user_session_path, :method => :delete)
+            = link_to I18n.t('nav.destroy_user_session'), destroy_user_session_path, :method => :delete
         - else
           %li{:class => "#{active?(new_user_session_path)}"}
-            = link_to('Logowanie', new_user_session_path)
+            = link_to link_to I18n.t('nav.new_user_session'), new_user_session_path
         - if admin_signed_in?
           %li
-            = link_to('Wyloguj się', destroy_admin_session_path, :method => :delete)
+            = link_to link_to I18n.t('nav.destroy_admin_session'), destroy_admin_session_path, :method => :delete 
         
