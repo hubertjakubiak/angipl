@@ -73,7 +73,7 @@ class WordsController < ApplicationController
       end
       
       respond_to :js
-      
+
     else
       must_login_to_vote
     end
@@ -94,10 +94,6 @@ class WordsController < ApplicationController
     else
       must_login_to_vote
     end
-
-  end
-
-  def vote(type)
 
   end
 
