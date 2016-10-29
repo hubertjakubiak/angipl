@@ -17,7 +17,7 @@ RSpec.feature "User create word", type: :feature do
     fill_in 'Angielski', with: Faker::Lorem.word
     fill_in 'Polski', with: Faker::Lorem.word
     find(:css, ".check_boxes[value='1']").set(true)
-    click_button 'Zapisz'
+    expect { click_button 'Zapisz' }.to change(Word, :count).by(1)
     expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
   end
 
