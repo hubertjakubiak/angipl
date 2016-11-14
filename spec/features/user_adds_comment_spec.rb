@@ -11,6 +11,12 @@ RSpec.feature "User adds comment", type: :feature do
     visit root_path
   end
 
+  it 'testing stub' do 
+    word = double(Word)
+    word.stub(:message).and_return("siemka")
+    expect(word.message).to eq("siemka")
+
+  end
 
   it 'when signed in' do
     visit word_path(id: 1)

@@ -53,6 +53,7 @@ gem 'decent_decoration', '~> 0.0.6'
 gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'react-rails'
 gem 'delayed_job_active_record'
+gem 'puma'
 
 gem 'quiet_assets', group: :development
 
