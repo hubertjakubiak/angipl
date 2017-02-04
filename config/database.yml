@@ -4,8 +4,6 @@ development:
   database: angipl_development
   host: localhost
   pool: 5
-  username: angipl
-  password: angipl
 
 test: &TEST
   adapter: postgresql
@@ -13,5 +11,3 @@ test: &TEST
   database: angipl_test
   host: localhost
   pool: 5
-  username: angipl
-  password: angipl
