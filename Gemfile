@@ -54,6 +54,7 @@ gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'react-rails'
 gem 'delayed_job_active_record'
 gem 'puma'
+gem 'searchkick'
 
 gem 'quiet_assets', group: :development
 

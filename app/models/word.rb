@@ -1,5 +1,7 @@
 class Word < ActiveRecord::Base
 
+  searchkick
+
   require 'csv'
 
   validates :en, :presence => {:message => "To pole nie może być puste." }
