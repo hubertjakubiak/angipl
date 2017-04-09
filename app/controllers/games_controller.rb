@@ -22,9 +22,7 @@ class GamesController < ApplicationController
     if category_is_defined_and_exists?
 
       unless category_has_enough_words?
-        respond_to do |format|
-          format.html { redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.' }
-        end
+        redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.'
       end
 
       get_random_words(words: category_words)
@@ -32,23 +30,16 @@ class GamesController < ApplicationController
     elsif params[:category] == "Moje słówka"
 
       unless user_has_enough_my_words?
-        respond_to do |format|
-          format.html { redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek' }
-        end
+        redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek'
       end
 
       get_random_words(words: my_words)
 
     elsif params[:category]
-      respond_to do |format|
-          format.html { redirect_to root_path, notice: 'Taka kategoria nie istnieje.' }
-        end
+      redirect_to root_path, notice: 'Taka kategoria nie istnieje.'
     else
-
       get_random_words(words: verified_words)
-
     end
-
   end
 
   def check
@@ -64,7 +55,7 @@ class GamesController < ApplicationController
     @correct_answer = Word.find_by_pl(@pl).en
     @correct_answer_id = Word.find_by_pl(@pl).id
 
-    @result = Word.where(["lower(en) = ? and lower(pl) = ?", "#{@en.downcase}", "#{@pl.downcase}"]).size.to_s
+    @result = CheckAnswer.new(en: @en, pl: @pl)
 
     respond_to do |format|
       format.html
