@@ -44,16 +44,12 @@ class GamesController < ApplicationController
   def check
     @en = params[:en]
     @pl = params[:pl]
-    if params[:word]
-      @en = params[:word][:en]
-      @pl = params[:word][:pl]
-    end
     @time = params[:time]
 
     @correct_answer = Word.find_by_pl(@pl).en
     @correct_answer_id = Word.find_by_pl(@pl).id
 
-    @result = CheckAnswer.new(en: @en, pl: @pl)
+    @result = CheckAnswer.new(en: @en, pl: @pl).call
 
     respond_to do |format|
       format.html

@@ -10,7 +10,9 @@ describe CheckAnswer do
     it "returns count of matched translations" do
       expect(subject).to eq value
     end
+  end
 
+  shared_examples "returns string" do
     it "returns string" do
       expect(subject.class).to eq String
     end
@@ -22,18 +24,21 @@ describe CheckAnswer do
       subject { described_class.new(en: "cat", pl: "kot").call }
       
       include_examples "returns count of matched translations", "1"
+      include_examples "returns string"
     end
 
     context "when translation is not correct" do
       subject { described_class.new(en: "cat", pl: "pies").call }
 
       include_examples "returns count of matched translations", "0"
+      include_examples "returns string"
     end
 
     context "when translation is not found" do
       subject { described_class.new(en: "dog", pl: "pies").call }
       
       include_examples "returns count of matched translations", "0"
+      include_examples "returns string"
     end
   end
 
@@ -42,18 +47,21 @@ describe CheckAnswer do
       subject { described_class.new(en: "cat", pl: "kot").call }
       
       include_examples "returns count of matched translations", "0"
+      include_examples "returns string"
     end
 
     context "when translation is not correct" do
       subject { described_class.new(en: "cat", pl: "pies").call }
 
       include_examples "returns count of matched translations", "0"
+      include_examples "returns string"
     end
 
     context "when translation is not found" do
       subject { described_class.new(en: "dog", pl: "pies").call }
       
       include_examples "returns count of matched translations", "0"
+      include_examples "returns string"
     end
   end
 end

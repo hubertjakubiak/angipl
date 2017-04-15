@@ -5,13 +5,13 @@ class CheckAnswer
   end
 
   def call
-    get_result
+    check_translation
   end
 
   private
 
-  def get_result
-    Word.where(["lower(en) = ? and lower(pl) = ?", "#{en.downcase}", "#{pl.downcase}"]).count.to_s
+  def check_translation
+    Word.where("lower(en) = ? and lower(pl) = ?", "#{en.downcase}", "#{pl.downcase}").count.to_s
   end
 
   attr_reader :en, :pl
