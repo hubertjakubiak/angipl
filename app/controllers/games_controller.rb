@@ -1,10 +1,9 @@
 class GamesController < ApplicationController
-
-  expose(:verified_words) { Word.verified}
+  expose(:verified_words) { Word.verified }
   expose(:categories) { Category.all.order("name ASC") }
   expose(:category) { Category.find_by_name(params[:category]) }
-  expose(:category_words) {category.words.where(:verified => true) if category } 
-  expose(:my_words) { current_user.words}
+  expose(:category_words) { category.words.where(verified: true) if category }
+  expose(:my_words) { current_user.words }
   expose(:all_good_count) { Stat.sum(:good_count) }
   expose(:all_bad_count) { Stat.sum(:bad_count) }
   expose(:my_stats) { Stat.find_by_user_id(current_user.id) if current_user }
@@ -15,14 +14,14 @@ class GamesController < ApplicationController
 
   def index
     unless enough_words?
-      flash[:notice] = 'Brak słówek w bazie. Dodaj minimum 5 słówek'
+      flash[:notice] = "Brak słówek w bazie. Dodaj minimum 5 słówek"
       redirect_to words_path
     end
 
     if category_is_defined_and_exists?
 
       unless category_has_enough_words?
-        redirect_to root_path, notice: 'Kategoria musi zawierać minimum 5 słówek.'
+        redirect_to root_path, notice: "Kategoria musi zawierać minimum 5 słówek."
       end
 
       get_random_words(words: category_words)
@@ -30,20 +29,19 @@ class GamesController < ApplicationController
     elsif params[:category] == "Moje słówka"
 
       unless user_has_enough_my_words?
-        redirect_to root_path, notice: 'Musisz dodać minimum 5 swoich słówek'
+        redirect_to root_path, notice: "Musisz dodać minimum 5 swoich słówek"
       end
 
       get_random_words(words: my_words)
 
     elsif params[:category]
-      redirect_to root_path, notice: 'Taka kategoria nie istnieje.'
+      redirect_to root_path, notice: "Taka kategoria nie istnieje."
     else
       get_random_words(words: verified_words)
     end
   end
 
   def check
-
     @en = params[:en]
     @pl = params[:pl]
     if params[:word]
@@ -84,7 +82,7 @@ class GamesController < ApplicationController
     def get_random_words(max_answers: 3, words:)
       rand = rand(1..max_answers)
       ids = words.pluck(:id).shuffle[0..rand]
-      @words = words.where(id: ids).order('random()')
+      @words = words.where(id: ids).order("random()")
       #@words = words.where(id: ids)
       @question_word = @words.first
       @words = @words.map { |word| word.en }.uniq
