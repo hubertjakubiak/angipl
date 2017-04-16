@@ -13,29 +13,16 @@ class GamesController < ApplicationController
   MIN_WORDS_FOR_MY_WORDS = 5
 
   def index
-    unless enough_words?
-      flash[:notice] = I18n.t("messages.not_enough_words")
-      redirect_to words_path
-    end
+    return not_enough_words if not_enough_words?
+    return category_needs_more_words if category_is_defined_and_exists? && category_has_not_enough_words?
+    return not_enough_my_words if my_words? && not_enough_my_words?
 
     if category_is_defined_and_exists?
-
-      unless category_has_enough_words?
-        redirect_to root_path, notice: I18n.t("messages.category_needs_more_words")
-      end
-
       get_random_words(words: category_words)
-
-    elsif params[:category] == "Moje słówka"
-
-      unless user_has_enough_my_words?
-        redirect_to root_path, notice: I18n.t("messages.my_words_not_enough")
-      end
-
+    elsif my_words?
       get_random_words(words: my_words)
-
-    elsif params[:category]
-      redirect_to root_path, notice: I18n.t("messages.category_does_not_exist")
+    elsif category?
+      category_does_not_exist
     else
       get_random_words(words: verified_words)
     end
@@ -61,6 +48,30 @@ class GamesController < ApplicationController
 
     attr_accessor :en, :pl, :time
 
+    def not_enough_words
+      redirect_to words_path, notice: I18n.t("messages.not_enough_words")
+    end
+
+    def not_enough_my_words
+      redirect_to root_path, notice: I18n.t("messages.my_words_not_enough")
+    end
+
+    def category_does_not_exist
+      redirect_to root_path, notice: I18n.t("messages.category_does_not_exist")
+    end
+
+    def my_words?
+      params[:category] == "Moje słówka"
+    end
+
+    def category?
+      params[:category].present?
+    end
+
+    def category_needs_more_words
+      redirect_to root_path, notice: I18n.t("messages.category_needs_more_words")
+    end
+
     def get_answer
       if user_is_typing?
         self.en = params[:word][:en]
@@ -75,16 +86,16 @@ class GamesController < ApplicationController
       params[:word].present?
     end
 
-    def enough_words?
-      verified_words.size >= MIN_WORDS_FOR_GAME
+    def not_enough_words?
+      verified_words.size < MIN_WORDS_FOR_GAME
     end
 
-    def category_has_enough_words?
-      category_words.count >= MIN_WORDS_FOR_CATEGORY ? true : false
+    def category_has_not_enough_words?
+      category_words.count < MIN_WORDS_FOR_CATEGORY ? true : false
     end
 
-    def user_has_enough_my_words?
-      my_words.count >= MIN_WORDS_FOR_MY_WORDS ? true : false
+    def not_enough_my_words?
+      my_words.count < MIN_WORDS_FOR_MY_WORDS ? true : false
     end
 
     def category_is_defined_and_exists?
