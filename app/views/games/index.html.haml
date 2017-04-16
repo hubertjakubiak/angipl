@@ -3,7 +3,7 @@
   .col-md-6.col-md-offset-3.text-center.top-buffer
     - if params[:typing] == "true"
       .type-game
-        = simple_form_for :word, url: games_check_path, method: :get, remote: true do |f|
+        = simple_form_for :word, url: games_check_path, method: :post, remote: true do |f|
           = f.input :pl, :as => :hidden, input_html: { value: @question_word.pl }
           .well
             %h1#correct_answer_is= @question_word.pl

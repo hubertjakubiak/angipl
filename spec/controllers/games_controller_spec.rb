@@ -11,7 +11,7 @@ describe GamesController do
       let(:params) { { en: "cat", pl: "kot" , time: time_now} }
 
       before do
-        get :check, params
+        post :check, params
       end
 
       it "assings @en to word.en" do
@@ -39,12 +39,12 @@ describe GamesController do
       let(:params) { { en: "cat", pl: "pies" } }
 
       it "returns count of matched translations" do
-        get :check, params
+        post :check, params
         expect(assigns(:result)).to eq "0"
       end
 
       it "returns status" do
-        get :check, params
+        post :check, params
         expect(response.status).to eq 200
       end
     end

@@ -46,6 +46,11 @@ class GamesController < ApplicationController
     @pl = params[:pl]
     @time = params[:time]
 
+    if params[:word]
+      @en = params[:word][:en]
+      @pl = params[:word][:pl]
+    end
+
     @correct_answer = Word.find_by_pl(@pl).en
     @correct_answer_id = Word.find_by_pl(@pl).id
 

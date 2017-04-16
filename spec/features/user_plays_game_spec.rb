@@ -14,6 +14,8 @@ RSpec.feature "User plays game", type: :feature do
     expect(page).not_to have_content("Wystąpił błąd")
   end
 
+
+
   scenario 'when signed out and select answer', js: true do
     visit root_path
     click_button('Pokaż odpowiedzi')
@@ -22,6 +24,16 @@ RSpec.feature "User plays game", type: :feature do
     page.has_css?('.word')
     expect(page).to have_css('.word.btn-success')
     expect(page).not_to have_content("Wystąpił błąd")
+  end
+
+   scenario 'when signed in', js: true do
+    visit root_path
+    find('#select-game-option').find(:xpath, 'option[text()[contains(.,"Chcę wpisywać")]]').click
+    expect(page).to have_content('Sprawdź')
+    expect(current_url).to include('typing=true')
+
+    click_button "Sprawdź"
+    expect(page).to have_css(".wrong-answer")
   end
 
   # scenario 'and select good answer', js: true do
