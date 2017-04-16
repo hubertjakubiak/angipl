@@ -7,7 +7,8 @@ describe GamesController do
   describe "#check" do
 
     context "when answer is correct" do
-      let(:params) { { en: "cat", pl: "kot" } }
+      let(:time_now) { Time.now.to_i.to_s}
+      let(:params) { { en: "cat", pl: "kot" , time: time_now} }
 
       before do
         get :check, params
@@ -19,6 +20,10 @@ describe GamesController do
 
       it "assings @pl to word.pl" do
         expect(assigns(:pl)).to eq word.pl
+      end
+
+      it "assings @time to time_now" do
+        expect(assigns(:time)).to eq time_now
       end
 
       it "returns count of matched translations" do

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'contact', to: 'pages#contact'
 
-  get 'games/check'
+  post 'games/check'
 
   get 'settings/index'
 
