@@ -91,11 +91,11 @@ class GamesController < ApplicationController
     end
 
     def category_has_not_enough_words?
-      category_words.count < MIN_WORDS_FOR_CATEGORY ? true : false
+      category_words.count < MIN_WORDS_FOR_CATEGORY
     end
 
     def not_enough_my_words?
-      my_words.count < MIN_WORDS_FOR_MY_WORDS ? true : false
+      my_words.count < MIN_WORDS_FOR_MY_WORDS
     end
 
     def category_is_defined_and_exists?
@@ -106,7 +106,6 @@ class GamesController < ApplicationController
       rand = rand(1..max_answers)
       ids = words.pluck(:id).shuffle[0..rand]
       @words = words.where(id: ids).order("random()")
-      #@words = words.where(id: ids)
       @question_word = @words.first
       @words = @words.map { |word| word.en }.uniq
     end
