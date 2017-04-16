@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.feature "User does not see import option", type: :feature do
 
-  let!(:word) {FactoryGirl.create_list(:word, 10, :categories => [FactoryGirl.create(:category)])}
+  let!(:word) { create_list(:word, 10, categories: [create(:category)]) }
 
   background do
     sign_in
@@ -16,7 +16,7 @@ RSpec.feature "User does not see import option", type: :feature do
   end
 
   scenario 'when signed in and he is admin' do
-    User.find(1).update(admin: true)
+    User.last.update(admin: true)
     click_link('Dodaj słówko')
     expect(page).to have_content 'Importuj słówka'
   end

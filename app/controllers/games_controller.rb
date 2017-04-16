@@ -14,14 +14,14 @@ class GamesController < ApplicationController
 
   def index
     unless enough_words?
-      flash[:notice] = "Brak słówek w bazie. Dodaj minimum 5 słówek"
+      flash[:notice] = I18n.t("messages.not_enough_words")
       redirect_to words_path
     end
 
     if category_is_defined_and_exists?
 
       unless category_has_enough_words?
-        redirect_to root_path, notice: "Kategoria musi zawierać minimum 5 słówek."
+        redirect_to root_path, notice: I18n.t("messages.category_needs_more_words")
       end
 
       get_random_words(words: category_words)
@@ -29,32 +29,27 @@ class GamesController < ApplicationController
     elsif params[:category] == "Moje słówka"
 
       unless user_has_enough_my_words?
-        redirect_to root_path, notice: "Musisz dodać minimum 5 swoich słówek"
+        redirect_to root_path, notice: I18n.t("messages.my_words_not_enough")
       end
 
       get_random_words(words: my_words)
 
     elsif params[:category]
-      redirect_to root_path, notice: "Taka kategoria nie istnieje."
+      redirect_to root_path, notice: I18n.t("messages.category_does_not_exist")
     else
       get_random_words(words: verified_words)
     end
   end
 
   def check
-    @en = params[:en]
-    @pl = params[:pl]
-    @time = params[:time]
+    get_answer
 
-    if params[:word]
-      @en = params[:word][:en]
-      @pl = params[:word][:pl]
-    end
+    self.time = params[:time]
 
-    @correct_answer = Word.find_by_pl(@pl).en
-    @correct_answer_id = Word.find_by_pl(@pl).id
+    @correct_answer = Word.find_by_pl(pl).en
+    @correct_answer_id = Word.find_by_pl(pl).id
 
-    @result = CheckAnswer.new(en: @en, pl: @pl).call
+    @result = CheckAnswer.new(en: en, pl: pl).call
 
     respond_to do |format|
       format.html
@@ -63,6 +58,22 @@ class GamesController < ApplicationController
   end
 
   private
+
+    attr_accessor :en, :pl, :time
+
+    def get_answer
+      if user_is_typing?
+        self.en = params[:word][:en]
+        self.pl = params[:word][:pl]
+      else
+        self.en = params[:en]
+        self.pl = params[:pl]
+      end
+    end
+
+    def user_is_typing?
+      params[:word].present?
+    end
 
     def enough_words?
       verified_words.size >= MIN_WORDS_FOR_GAME
