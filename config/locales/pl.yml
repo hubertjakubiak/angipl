@@ -13,6 +13,11 @@ pl:
 
             categories:
               blank: 'Musisz wybrać kategorię.'
+  messages: 
+    not_enough_words: 'Brak słówek w bazie. Dodaj minimum 5 słówek'
+    category_does_not_exist: 'Taka kategoria nie istnieje.'
+    category_needs_more_words: 'Kategoria musi zawierać minimum 5 słówek.'
+    my_words_not_enough: 'Musisz dodać minimum 5 swoich słówek'
   nav:
     words: 'Słówka'
     all_words: 'Wszystkie'
