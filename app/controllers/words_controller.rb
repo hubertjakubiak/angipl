@@ -18,42 +18,41 @@ class WordsController < ApplicationController
   end
 
   def my
-    authorize! :my_words, word, :message => "Musisz się zalogować, aby mieć swoje słówka."
+    authorize! :my_words, word, message: I18n.t("messages.login_to_add_new_word")
   end
 
-  # GET /words/new
   def new
-    authorize! :create, word, :message => "Musisz się zalogować, aby dodać nowe słówko."
+    authorize! :create, word, message: I18n.t("messages.login_to_add_new_word")
   end
 
   def edit
-    authorize! :edit, word, :message => "Nie możesz edytować tego słówka."
+    authorize! :edit, word, message: I18n.t("messages.you_cant_edit_this_word")
   end
 
   def create
-    authorize! :create, word, :message => "Musisz się zalogować, aby dodać nowe słówko."
+    authorize! :create, Word, message: I18n.t("messages.login_to_add_new_word")
     word.user = current_user
     if word.save
-      redirect_to new_word_path
-      flash[:notice] = 'Słówko zostało prawidłowo zapisane. Dodaj następne!'
+      redirect_to new_word_path, notice: I18n.t("messages.word_was_saved")
     else
       render :new
     end
   end
 
   def update
+    authorize! :edit, Word, message: I18n.t("messages.login_to_edit_word")
     if word.update(word_params)
-      redirect_to word_path(word), notice: 'Słówko został prawidłowo edytowane.'
+      redirect_to word_path(word), notice: I18n.t("messages.word_was_edited")
     else
       render :edit
     end
   end
   
   def destroy
-    authorize! :delete, word, :message => "Nie możesz usunąć tego słówka."
+    authorize! :delete, word, message: I18n.t("messages.you_can_not_delete_word")
     word.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Słówka zostało usunięte' }
+      format.html { redirect_to :back, notice: I18n.t("messages.word_was_deleted") }
       format.json { head :no_content }
     end
   end
