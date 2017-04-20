@@ -315,6 +315,25 @@ describe WordsController do
         end
       end
 
+      context "when user is not owner of this word" do
+        let!(:user_2) { create(:user) }
+        let!(:word) { create(:word, user: user_2) }
+        let(:params) { { id: word.id } }
+        let(:call) { delete :destroy, params }
+
+        it "has status 302" do
+          call
+          expect(response.status).to eq 302
+        end
+      
+        it "does not delete word" do
+          expect { call }.not_to change { Word.count }
+        end
+
+        it "raises error" do
+          expect { controller.destroy }.to raise_error(I18n.t("messages.you_can_not_delete_word"))
+        end
+      end
     end
 
     context "when user is not signed in" do
