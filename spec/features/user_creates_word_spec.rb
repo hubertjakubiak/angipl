@@ -18,7 +18,7 @@ RSpec.feature "User create word", type: :feature do
     fill_in 'Polski', with: Faker::Lorem.word
     find(:css, ".check_boxes[value='1']").set(true)
     expect { click_button 'Zapisz' }.to change(Word, :count).by(1)
-    expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
+    expect(page).to have_content I18n.t("messages.word_was_saved")
   end
 
   scenario 'with missing en value' do
@@ -47,7 +47,7 @@ RSpec.feature "User create word", type: :feature do
     fill_in 'Polski', with: 'kot'
     find(:css, ".check_boxes[value='1']").set(true)
     click_button 'Zapisz'
-    expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
+    expect(page).to have_content I18n.t("messages.word_was_saved")
 
     click_link('Dodaj słówko')
 
@@ -63,7 +63,7 @@ RSpec.feature "User create word", type: :feature do
     fill_in 'Polski', with: 'kot'
     find(:css, ".check_boxes[value='1']").set(true)
     click_button 'Zapisz'
-    expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
+    expect(page).to have_content I18n.t("messages.word_was_saved")
     en_word = Word.last.en
     expect(en_word).to eq('cat')
   end

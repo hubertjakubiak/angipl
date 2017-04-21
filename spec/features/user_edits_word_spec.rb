@@ -16,7 +16,7 @@ RSpec.feature "User can only edit his words ", type: :feature do
     fill_in 'Polski', with: 'kot'
     find(:css, ".check_boxes[value='1']").set(true)
     click_button 'Zapisz'
-    expect(page).to have_content 'Słówko zostało prawidłowo zapisane.'
+    expect(page).to have_content I18n.t("messages.word_was_saved")
 
     visit edit_word_path(11)
 
@@ -31,7 +31,7 @@ RSpec.feature "User can only edit his words ", type: :feature do
 
   scenario 'that does not belong to him' do
     visit edit_word_path(1)
-    expect(page).to have_content 'Nie możesz edytować tego słówka.'
+    expect(page).to have_content I18n.t("messages.you_cant_edit_this_word")
   end
 
 end

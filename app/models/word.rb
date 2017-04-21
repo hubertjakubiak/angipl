@@ -16,7 +16,7 @@ class Word < ActiveRecord::Base
 
   has_many :word_categories
   has_many :comments
-  has_many :categories, through: :word_categories
+  has_many :categories, through: :word_categories, dependent: :destroy
 
   scope :verified , -> { where(:verified => true)}
   scope :unverified , -> { where(:verified => false)}
