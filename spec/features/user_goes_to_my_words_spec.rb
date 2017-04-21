@@ -20,7 +20,7 @@ RSpec.feature "User goes to my words", type: :feature do
   scenario 'after logout' do
     logout
     visit my_words_path
-    expect(page).to have_content("Musisz się zalogować, aby mieć swoje słówka.")
+    expect(page).to have_content I18n.t("messages.login_to_add_new_word")
   end
 
 end

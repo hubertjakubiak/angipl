@@ -18,7 +18,7 @@ pl:
     category_does_not_exist: 'Taka kategoria nie istnieje.'
     category_needs_more_words: 'Kategoria musi zawierać minimum 5 słówek.'
     my_words_not_enough: 'Musisz dodać minimum 5 swoich słówek'
-    login_to_add_new_word: 'Słówko zostało prawidłowo zapisane. Dodaj następne!'
+    login_to_add_new_word: 'Zaloguj się, aby dodać nowe słówko'
     login_to_edit_word: 'Zaloguj się, aby edytować słówko.'
     you_cant_edit_this_word: 'Nie możesz edytować tego słówka.'
     word_was_saved: 'Słówko zostało zapisane. Dodaj następne!'
