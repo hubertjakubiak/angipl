@@ -409,7 +409,7 @@ DEPENDENCIES
   devise-i18n
   draper (~> 2.1)
   factory_girl_rails
-  faker (~> 1.6, >= 1.6.3)
+  faker
   gemsurance
   guard-rspec
   haml (~> 4.0.5)
