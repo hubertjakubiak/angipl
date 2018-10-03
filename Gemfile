@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.6'
+
 gem 'active_link_to'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'bootstrap-sass', '~> 3.3.6'
