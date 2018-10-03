@@ -43,7 +43,6 @@ group :development do
   gem 'quiet_assets'
   gem 'quiet_assets'
   gem 'spring'
-  gem 'web-console', '~> 2.0'
 end
 
 group :test do
@@ -61,5 +60,4 @@ end
 group :production do
   gem 'puma'
   gem 'rails_12factor'
-  gem 'web-console', '~> 2.0'
 end
